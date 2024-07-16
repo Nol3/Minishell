@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:39:31 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/16 13:00:58 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:17:05 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,21 @@ typedef struct s_data
 	t_cmd				*cmd_list;
 }						t_data;
 
-void   parse_variables(char *line);
+void	parse_variables(char *line);
 
 /*
-Initializes data:
-returns 1 if everything went ok, 
-returns 0 if not.
-@param data
+Prints an error
+@param str
+@return 0
+*/
+int		print_error(const char *str);
+
+/*
+Returns an initialized t_data if everything went ok,
+returns NULL if not.
 @param envp
 @return int
 */
-int	initialize_data(t_data *data, char **envp);
+t_data	*get_initialized_data(char **envp);
 
 #endif

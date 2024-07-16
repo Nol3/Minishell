@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:40:11 by angcampo          #+#    #+#             */
-/*   Updated: 2024/07/16 12:55:55 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:11:34 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,13 @@ static void	initialize_built_in_cmd(t_data *data)
 	data->built_in_cmd[7] = NULL;
 }
 
-int	initialize_data(t_data *data, char **envp)
+t_data	*get_initialized_data(char **envp);
 {
+	t_data	*data;
+
+	data = (t_data *)malloc(sizeof(t_data));
+	if (!data)
+		return (0);
 	initialize_built_in_cmd(data);
 	data->status = 0;
 	data->exit = 0;

@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 11:14:20 by angcampo          #+#    #+#             */
-/*   Updated: 2024/07/16 13:02:13 by angcampo         ###   ########.fr       */
+/*   Created: 2024/07/16 13:10:30 by angcampo          #+#    #+#             */
+/*   Updated: 2024/07/16 13:15:56 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	main(int argc, char **argv, char **enpv)
+int	print_error(const char *str)
 {
-	if (argc != 0)
-		
+	ft_printf("Error:\n");
+	if (str)
+		ft_printf("%s\n", str);
+	return (0);
 }
