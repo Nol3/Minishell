@@ -7,3 +7,8 @@ int	print_error(const char *str)
 		ft_printf("%s\n", str);
 	return (0);
 }
+
+void ft_nada(const char *str)
+{
+	(void)str;
+}
