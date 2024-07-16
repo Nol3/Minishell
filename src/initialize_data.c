@@ -6,13 +6,11 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 12:40:11 by angcampo          #+#    #+#             */
-/*   Updated: 2024/07/16 13:11:34 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:19:03 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-
 
 /*
 We need as built_in_cmd:
