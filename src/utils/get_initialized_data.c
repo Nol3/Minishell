@@ -1,4 +1,4 @@
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static t_envp_list	*get_envp_list_node(char *str)
 {
