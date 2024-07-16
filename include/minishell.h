@@ -49,8 +49,6 @@ typedef struct s_data
 	t_cmd				*cmd_list;
 }						t_data;
 
-void	parse_variables(char *line);
-
 /*
 Prints "Error\n" then prints str with another \n if str isn't empty
 @param str
@@ -70,5 +68,31 @@ t_data	*get_initialized_data(char **envp);
 Liberates all data from the struct
 */
 void	free_data(t_data *data);
+
+/*
+Inits console
+*/
+void	console_initialization(t_data *data);
+
+/*
+Adds tokens from input, returns 1 if ok
+and returns 0 if not
+@param data Fully initialized
+@param input Any string
+*/
+int		add_tokens_from_input(t_data *data, char *input);
+
+/*
+Adds tokens from input, returns 1 if ok
+and returns 0 if not
+@param data Fully initialized with tokens
+*/
+int		add_commands_from_input(t_data *data);
+
+/*
+Executes the commands
+@param data Fully initialized with tokens and commands
+*/
+void	ft_pipex(t_data *data);
 
 #endif

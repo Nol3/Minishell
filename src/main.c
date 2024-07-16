@@ -21,6 +21,7 @@ valgrind --leak-check=full --track-origins=yes --log-file=valgrind-out.txt ./min
 int	main(int argc, char **argv, char **enpv)
 {
 	t_data	*data;
+	int		status;
 
 	(void) argv;
 	if (argc != 1)
@@ -29,5 +30,8 @@ int	main(int argc, char **argv, char **enpv)
 	if (!data)
 		return (print_error("Data initialization failed"));
 	print_data(data);
+	console_initialization(data);
+	status = data->status;
 	free_data(data);
+	return (status);
 }
