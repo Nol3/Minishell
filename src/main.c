@@ -1,16 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 11:14:20 by angcampo          #+#    #+#             */
-/*   Updated: 2024/07/16 13:28:54 by angcampo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../include/minishell.h"
+
+/*
+static void	print_data(t_data *data)
+{
+	//int	i;
+
+	//i = -1;
+	//while (data->envp[++i])
+	//	ft_printf("%s\n", data->envp[i]);
+	while (data->envp_list)
+	{
+		ft_printf("key: %s, value: %s\n",
+			data->envp_list->key,
+			data->envp_list->value);
+		data->envp_list = data->envp_list->next;
+	}
+}
+*/
 
 int	main(int argc, char **argv, char **enpv)
 {
@@ -22,4 +28,5 @@ int	main(int argc, char **argv, char **enpv)
 	data = get_initialized_data(enpv);
 	if (!data)
 		return (print_error("Data initialization failed"));
+	//print_data(data);
 }
