@@ -49,6 +49,8 @@ typedef struct s_data
 	t_cmd				*cmd_list;
 }						t_data;
 
+
+
 void	parse_variables(char *line);
 
 /*
@@ -70,5 +72,14 @@ t_data	*get_initialized_data(char **envp);
 Liberates all data from the struct
 */
 void	free_data(t_data *data);
+
+//pipex funciones:
+int		ft_pipex(t_data data);
+int		ft_exec_cmd(t_data *data, t_cmd *node, int cmd_number);
+//utils_pipex funciones:
+int 	ft_cmdlist_size(t_cmd *cmd_list);
+int		ft_is_builtin(t_data *data, char *str);
+int		ft_built_in(t_data *data, t_cmd *node);
+int		ft_fork(t_data *data, t_cmd *node, int cmd_number);
 
 #endif
