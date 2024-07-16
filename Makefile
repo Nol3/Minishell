@@ -9,7 +9,8 @@ all :$(NAME)
 
 $(NAME) : $(OBJS)
 	$(MAKE) -C ./libft
-	@gcc $(FLAGS) $(OBJS)  $(LIBFT) -o $(NAME)
+	echo $(FILES)
+	@gcc $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 src/%.o : src/%.c
 	gcc $(FLAGS) -c $< -o $@
