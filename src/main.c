@@ -1,16 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 11:14:20 by angcampo          #+#    #+#             */
-/*   Updated: 2024/07/16 13:28:54 by angcampo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../include/minishell.h"
+
+static void	print_data(t_data *data)
+{
+	t_envp_list	*current;
+
+	current = data->envp_list;
+	while (current)
+	{
+		ft_printf("key: %s, value: %s\n",
+			current->key,
+			current->value);
+		current = current->next;
+	}
+}
+
+/*
+valgrind --leak-check=full --track-origins=yes --log-file=valgrind-out.txt ./minishell
+*/
 
 int	main(int argc, char **argv, char **enpv)
 {
@@ -22,4 +28,6 @@ int	main(int argc, char **argv, char **enpv)
 	data = get_initialized_data(enpv);
 	if (!data)
 		return (print_error("Data initialization failed"));
+	print_data(data);
+	free_data(data);
 }

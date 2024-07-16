@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 11:39:31 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/16 13:47:39 by angcampo         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -77,5 +65,10 @@ returns NULL if not.
 @return int
 */
 t_data	*get_initialized_data(char **envp);
+
+/*
+Liberates all data from the struct
+*/
+void	free_data(t_data *data);
 
 #endif
