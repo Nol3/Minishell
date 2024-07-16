@@ -28,7 +28,7 @@ re: fclean all
 git:
 	git add .
 	git commit -m "Daily sync $(DATE)"
-	git push origin angcampo
+	git push origin alejandro
 
 .PHONY: re all fclean clean git
 
