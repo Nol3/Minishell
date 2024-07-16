@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:39:31 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/16 12:27:26 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:00:58 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_cmd
 	struct s_cmd		*next;
 }						t_cmd;
 
-typedef struct s_dataa
+typedef struct s_data
 {
 	char				*built_in_cmd[8];
 	int					status;
@@ -62,5 +62,15 @@ typedef struct s_dataa
 }						t_data;
 
 void   parse_variables(char *line);
+
+/*
+Initializes data:
+returns 1 if everything went ok, 
+returns 0 if not.
+@param data
+@param envp
+@return int
+*/
+int	initialize_data(t_data *data, char **envp);
 
 #endif
