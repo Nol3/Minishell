@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:39:31 by alcarden          #+#    #+#             */
-/*   Updated: 2024/07/16 13:17:05 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:47:39 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ typedef struct s_token
 	struct s_token	*next;
 }	t_token;
 
-typedef struct s_env_list
+typedef struct s_envp_list
 {
 	char				*key;
 	char				*value;
-	struct s_env_list	*next;
-}						t_env_list;
+	struct s_envp_list	*next;
+}						t_envp_list;
 
 typedef struct s_cmd
 {
@@ -56,7 +56,7 @@ typedef struct s_data
 	int					status;
 	int					exit;
 	char				**envp;
-	t_env_list			*envp_list;
+	t_envp_list			*envp_list;
 	t_token				*token_list;
 	t_cmd				*cmd_list;
 }						t_data;
@@ -64,7 +64,7 @@ typedef struct s_data
 void	parse_variables(char *line);
 
 /*
-Prints an error
+Prints "Error\n" then prints str with another \n if str isn't empty
 @param str
 @return 0
 */

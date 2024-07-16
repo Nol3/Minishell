@@ -1,27 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize_data.c                                  :+:      :+:    :+:   */
+/*   get_initialized_data.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/16 12:40:11 by angcampo          #+#    #+#             */
-/*   Updated: 2024/07/16 13:19:03 by angcampo         ###   ########.fr       */
+/*   Created: 2024/07/16 13:24:31 by angcampo          #+#    #+#             */
+/*   Updated: 2024/07/16 14:01:37 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-/*
-We need as built_in_cmd:
-	0: echo with option -n.
-	1: cd with only a relative or absolute path.
-	2: pwd (no flags).
-	3: export (no flags).
-	4: unset (no flags).
-	5: env (no flags or arguments).
-	6: exit (no flags).
-*/
+static char	**get_envp(char **envp)
+{
+	char	**tmp;
+	char	**new;
+	int		count;
+	int		i;
+
+	count = 0;
+	tmp = envp;
+	while (*tmp)
+	{
+		count++;
+		tmp++;
+	}
+	new = (char **)malloc(sizeof(char *) * (count + 1));
+	if (!new)
+		return (NULL);
+	i = -1;
+	while (++i < count)
+		new[i] = ft_strdup(envp[i]);
+	new[i] = NULL;
+	return (new);
+}
+
+static t_envp_list	*get_envp_list(char **envp)
+{
+
+}
+
 static void	initialize_built_in_cmd(t_data *data)
 {
 	data->built_in_cmd[0] = ft_strdup("echo");
@@ -34,18 +53,23 @@ static void	initialize_built_in_cmd(t_data *data)
 	data->built_in_cmd[7] = NULL;
 }
 
-t_data	*get_initialized_data(char **envp);
+t_data	*get_initialized_data(char **envp)
 {
 	t_data	*data;
 
 	data = (t_data *)malloc(sizeof(t_data));
 	if (!data)
-		return (0);
+		return (print_error("Malloc failed"));
 	initialize_built_in_cmd(data);
+	data->envp = get_envp(envp);
+	if (!data->envp)
+		return (print_error("Duping envp failed"));
+	data->envp_list = get_envp_list(data->envp);
+	if (!data->envp_list)
+		return (print_error("Creating envp_list failed"));
 	data->status = 0;
 	data->exit = 0;
-	data->envp = envp;
-	data->envp_list = NULL;
 	data->token_list = NULL;
 	data->cmd_list = NULL;
+	return (data);
 }
