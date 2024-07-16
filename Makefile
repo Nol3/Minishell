@@ -3,20 +3,24 @@ FLAGS = -Wall -Werror -Wextra -g
 FILES = $(shell find src -type f -name "*.c")
 OBJS = $(FILES:.c=.o)
 DATE = $(shell /usr/bin/date)
+LIBFT = ./libft/libft.a
 
 all :$(NAME)
 
 $(NAME) : $(OBJS)
-	@gcc $(FLAGS) $(OBJS) -o $(NAME) -pthread
+	$(MAKE) -C ./libft
+	@gcc $(FLAGS) $(OBJS)  $(LIBFT) -o $(NAME)
 
 src/%.o : src/%.c
 	gcc $(FLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJS)
+	$(MAKE) -C ./libft clean
 
 fclean:
 	@rm -f $(NAME) $(OBJS)
+	$(MAKE) -C ./libft fclean
 
 re: fclean all
 

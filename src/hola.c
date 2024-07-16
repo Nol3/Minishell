@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hola.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 11:14:20 by angcampo          #+#    #+#             */
-/*   Updated: 2024/07/16 11:14:47 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/07/16 11:52:24 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "../include/minishell.h"
 
 int main(void)
 {
