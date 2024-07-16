@@ -66,4 +66,9 @@ returns NULL if not.
 */
 t_data	*get_initialized_data(char **envp);
 
+/*
+Liberates all data from the struct
+*/
+void	free_data(t_data *data);
+
 #endif

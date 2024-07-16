@@ -1,21 +1,21 @@
 #include "../include/minishell.h"
 
-/*
 static void	print_data(t_data *data)
 {
-	//int	i;
+	t_envp_list	*current;
 
-	//i = -1;
-	//while (data->envp[++i])
-	//	ft_printf("%s\n", data->envp[i]);
-	while (data->envp_list)
+	current = data->envp_list;
+	while (current)
 	{
 		ft_printf("key: %s, value: %s\n",
-			data->envp_list->key,
-			data->envp_list->value);
-		data->envp_list = data->envp_list->next;
+			current->key,
+			current->value);
+		current = current->next;
 	}
 }
+
+/*
+valgrind --leak-check=full --track-origins=yes --log-file=valgrind-out.txt ./minishell
 */
 
 int	main(int argc, char **argv, char **enpv)
@@ -28,5 +28,6 @@ int	main(int argc, char **argv, char **enpv)
 	data = get_initialized_data(enpv);
 	if (!data)
 		return (print_error("Data initialization failed"));
-	//print_data(data);
+	print_data(data);
+	free_data(data);
 }
