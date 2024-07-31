@@ -1,70 +1,7 @@
 #include "../../include/minishell.h"
 
 /*mis funciones de pipex base*/
-
-// void	ft_child_process(char **argv, char **envp, int *fd)
-// {
-// 	int		file_in;
-
-// 	file_in = open(argv[1], O_RDONLY, 0777);
-// 	if (file_in == -1)
-// 		ft_error();
-// 	dup2(fd[1], STDOUT_FILENO);
-// 	dup2(file_in, STDIN_FILENO);
-// 	close(fd[0]);
-// 	ft_execute(argv[2], envp);
-// }
-
-// void	ft_parent_process(char **argv, char **envp, int *fd)
-// {
-// 	int		file_out;
-
-// 	file_out = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-// 	if (file_out == -1)
-// 		ft_error();
-// 	dup2(fd[0], STDIN_FILENO);
-// 	dup2(file_out, STDOUT_FILENO);
-// 	close(fd[1]);
-// 	ft_execute(argv[3], envp);
-// }
-
-int	ft_pipex(t_data data)
-{
-	t_cmd	*current;
-	int		status;
-	int		cmd_count;
-
-	current = data->cmd_list;
-	status = 0;
-	cmd_count = 0;
-	if (ft_cmdlist_size(current) > 1)
-		cmd_count = 1;
-	while (current)
-	{
-		status = ft_exec_cmd(data, current, cmd_count);
-	}
-}
-
-int	ft_exec_cmd(t_data *data, t_cmd *node, int cmd_number)
-{
-	int	status;
-
-	status = 0;
-	if (ft_is_builtin(data, node->command[0]) == TRUE && cmd_number == 0)
-	{
-		status = ft_built_in(data, node);
-		if (node->fd_in != NO_FD && node->fd_in != STDIN)
-			close(node->fd_in);
-		if (node->fd_out != NO_FD && node->fd_out != STDOUT)
-			close(node->fd_out);
-		return (status);
-	}
-	else
-	{
-		g_batch_flag = 1;
-		return (ft_fork(data, node, cmd_number));
-	}
-}
+//UNDEF_FD = -2 en minishell.h
 
 int	ft_cmdlist_size(t_cmd *cmd_list)
 {
@@ -81,66 +18,153 @@ int	ft_cmdlist_size(t_cmd *cmd_list)
 	return (size);
 }
 
-int	ft_is_builtin(t_data *data, char *str)
+int	ft_pipex(t_data data)
 {
-	int	cntr;
+	t_cmd	*current;
+	int		status;
+	int		cmd_count;
 
-	cntr = 0;
-	while (data->built_in_cmd[cntr])
+	current = data->cmd_list;
+	status = 0;
+	cmd_count = 0;
+	if (ft_cmdlist_size(current) > 1)
+		cmd_count = 1;
+	while (current)
 	{
-		if (ft_strncmp(str, data->built_in_cmd[cntr],
-				ft_strlen(data->built_in_cmd[cntr]) + 1) == 0)
-			return (TRUE);
-		cntr++;
+		status = ft_exec_cmd(data, list, cmd_count);
+		g_pack = 0;
+		data->status = status;
+		current = list->next;
+		cmd_count++;
 	}
-	return (FALSE);
+	return (EXIT_SUCCESS);
 }
 
-int	ft_built_in(t_data *data, t_cmd *node)
+int	ft_exec_cmd(t_data *data, t_cmd *node, int cmd_count)
 {
 	int	status;
-	int	original_fd_out;
-	int	original_fd_in;
 
-	original_fd_out = dup(STDOUT);
-	original_fd_in = dup(STDIN);
 	status = 0;
-	ft_redir_fd_std(node->fd_in, STDIN, node->fd_in);
-	ft_redir_fd_std(node->fd_out, STDOUT, node->fd_out);
-	status = ft_exec_builtin(data, node->command);
-	ft_redir_fd_std(node->fd_in, STDIN, original_fd_in);
-	ft_redir_fd_std(node->fd_out, STDOUT, original_fd_out);
-	return (status);
+	// if (ft_is_builtin(data, node->command[0]) == TRUE && cmd_count == 0)
+	// {
+	// 	status = ft_built_in(data, node);
+	// 	if (node->fd_in != UNDEF_FD && node->fd_in != STDIN)
+	// 		close(node->fd_in);
+	// 	if (node->fd_out != UNDEF_FD && node->fd_out != STDOUT)
+	// 		close(node->fd_out);
+	// 	return (status);
+	//}
+	else
+	{
+		g_pack = 1;
+		return (ft_fork(data, node, cmd_count));
+	}
 }
 
-int	ft_fork(t_data *data, t_cmd *node, int cmd_number)
+int	ft_fork(t_data *data, t_cmd *node, int cmd_count)
 {
 	int		status;
 	pid_t	id;
 
-	status = NO_FD;
+	status = UNDEF_FD;
 	id = fork();
-	if (id == 0)
+	if (id == 0) //child process
 	{
-		if (ft_is_builtin(data, node->command[0]) == TRUE && cmd_number != 0)
-		{
-			status = ft_built_in(data, node);
-			exit(status);
-		}
+		// if (ft_is_builtin(data, node->command[0]) == TRUE && cmd_count != 0)
+		// {
+		// 	status = ft_built_in(data, node);
+		// 	exit(status);
+		// }
 		else
 			ft_child_process(data, node);
 	}
-	else
+	else //parent process
 	{
 		waitpid(id, &status, 0);
-		if (node->fd_in != NO_FD && node->fd_in != STDIN)
+		if (node->fd_in != UNDEF_FD && node->fd_in != STDIN)
 			close(node->fd_in);
-		if (node->fd_out != NO_FD && node->fd_out != STDOUT)
+		if (node->fd_out != UNDEF_FD && node->fd_out != STDOUT)
 			close(node->fd_out);
 	}
 	return (WEXITSTATUS(status));
 }
 
+int	ft_child_process(t_data *data, t_cmd *node)
+{
+	int		og_stdin;
+	int		og_stdout;
+	char	*tmp;
+	int		status;
+	char	**paths;
+
+	tmp = NULL;
+	paths = NULL;
+	status = 0;
+	og_stdin = dup(STDIN);
+	og_stdout = dup(STDOUT);
+	child_process_redir(node);
+	paths = get_paths(data->envp);
+	tmp = abs_bin_path(node->command[0], paths);
+	if (!tmp)
+		exit(COMMAND_NULL);
+	if (execve(tmp, node->command, data->envp) < 0)
+	{
+		free(tmp);
+		ft_free_matrix(paths);
+		ft_redir_fd_std(og_stdin, status, og_stdout);
+		exit(EXIT_FAILURE);
+	}
+	return (status);
+}
+
+static void	child_process_redir(t_cmd *node)
+{
+	ft_redir_fd_std(node->fd_in, STDIN, node->fd_in);
+	ft_redir_fd_std(node->fd_out, STDOUT, node->fd_out);
+}
+
+void	ft_redir_fd_std(int fd, int std, int fd2)
+{
+	if (fd != UNDEF_FD && fd != std)
+	{
+		if (dup2(fd2, std) < 0)
+			ft_print_error(REDIR_ERROR);
+		close(fd);
+	}
+}
+
 /*
-implementar "ft_is builtin"/"ft_built_in"
+---------------- builtin functions ----------------
 */
+
+// int	ft_is_builtin(t_data *data, char *str)
+// {
+// 	int	cntr;
+
+// 	cntr = 0;
+// 	while (data->built_in_cmd[cntr])
+// 	{
+// 		if (ft_strncmp(str, data->built_in_cmd[cntr],
+// 				ft_strlen(data->built_in_cmd[cntr]) + 1) == 0)
+// 			return (TRUE);
+// 		cntr++;
+// 	}
+// 	return (FALSE);
+// }
+
+// int	ft_built_in(t_data *data, t_cmd *node)
+// {
+// 	int	status;
+// 	int	original_fd_out;
+// 	int	original_fd_in;
+
+// 	original_fd_out = dup(STDOUT);
+// 	original_fd_in = dup(STDIN);
+// 	status = 0;
+// 	ft_redir_fd_std(node->fd_in, STDIN, node->fd_in);
+// 	ft_redir_fd_std(node->fd_out, STDOUT, node->fd_out);
+// 	status = ft_exec_builtin(data, node->command);
+// 	ft_redir_fd_std(node->fd_in, STDIN, original_fd_in);
+// 	ft_redir_fd_std(node->fd_out, STDOUT, original_fd_out);
+// 	return (status);
+// }

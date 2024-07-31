@@ -14,6 +14,12 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+// FILE DESCRIPTORS UTILS DEFINES
+# define STDIN 0
+# define STDOUT 1
+# define STDERR 2
+# define UNDEF_FD -2
+
 typedef struct s_token
 {
 	int				key;
@@ -49,7 +55,7 @@ typedef struct s_data
 	t_cmd				*cmd_list;
 }						t_data;
 
-
+int g_pack;
 
 void	parse_variables(char *line);
 
@@ -74,11 +80,19 @@ Liberates all data from the struct
 void	free_data(t_data *data);
 
 //pipex funciones:
-int		ft_pipex(t_data data);
-int		ft_exec_cmd(t_data *data, t_cmd *node, int cmd_number);
-int 	ft_cmdlist_size(t_cmd *cmd_list);
-int		ft_is_builtin(t_data *data, char *str);
-int		ft_built_in(t_data *data, t_cmd *node);
-int		ft_fork(t_data *data, t_cmd *node, int cmd_number);
+int 		ft_cmdlist_size(t_cmd *cmd_list);
+int			ft_pipex(t_data data);
+int			ft_exec_cmd(t_data *data, t_cmd *node, int cmd_number);
+int			ft_fork(t_data *data, t_cmd *node, int cmd_number);
+int			ft_child_process(t_data *data, t_cmd *node);
+static void	child_process_redir(t_cmd *node);
+void		ft_redir_fd_std(int fd, int std, int fd2);
+//int		ft_is_builtin(t_data *data, char *str);
+//int		ft_built_in(t_data *data, t_cmd *node);
+
+//list_utils funciones:
+char		**get_paths(char *envp[]);
+char		*abs_bin_path(char *cmd, char **envp);
+char		*ft_valid_cmd(char *cmd);
 
 #endif
