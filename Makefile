@@ -1,5 +1,5 @@
 NAME = minishell
-FLAGS = -Wall -Werror -Wextra -g -lreadline
+FLAGS = -Wall -Werror -Wextra -g
 FILES = $(shell find src -type f -name "*.c")
 OBJS = $(FILES:.c=.o)
 DATE = $(shell /usr/bin/date)
@@ -9,7 +9,7 @@ all :$(NAME)
 
 $(NAME) : $(OBJS)
 	$(MAKE) -C ./libft
-	@clang $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	@clang $(FLAGS) $(OBJS) -lreadline $(LIBFT) -o $(NAME)
 
 src/%.o : src/%.c
 	clang $(FLAGS) -c $< -o $@
