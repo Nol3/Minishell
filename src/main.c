@@ -29,8 +29,8 @@ int	main(int argc, char **argv, char **enpv)
 	data = get_initialized_data(enpv);
 	if (!data)
 		return (print_error("Data initialization failed"));
-	//print_data(data);
-	//initialize_console(data);
+	print_data(data);
+	initialize_console(data);
 	status = data->status;
 	free_data(data);
 	return (status);

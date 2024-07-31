@@ -1,6 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# define "defines.h"
 # include "../libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -13,12 +14,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-
-// FILE DESCRIPTORS UTILS DEFINES
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
-# define UNDEF_FD -2
 
 typedef struct s_token
 {

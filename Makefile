@@ -9,7 +9,6 @@ all :$(NAME)
 
 $(NAME) : $(OBJS)
 	$(MAKE) -C ./libft
-	echo $(FILES)
 	@clang $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 
 src/%.o : src/%.c
