@@ -31,19 +31,7 @@ static void	free_envp_list(t_data *data)
 
 static void	free_token_list(t_data *data)
 {
-	t_token	*current;
-	t_token	*to_delete;
-
-	current = data->token_list;
-	to_delete = NULL;
-	while (current)
-	{
-		if (current->content)
-			free(current->content);
-		to_delete = current;
-		current = current->next;
-		free(to_delete);
-	}
+	free_list(data->token_list);
 }
 
 static void	free_cmd_list(t_data *data)

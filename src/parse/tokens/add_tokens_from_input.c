@@ -1,0 +1,60 @@
+#include "../../../include/minishell.h"
+
+static int	tokenize_pipe(t_token_list *list, enum e_token_state state)
+{
+	t_token	*token;
+
+	token = new_token("|", 1, PIPE_LINE, state);
+	if (!token)
+		return (0);
+	add_token_last(list, token);
+	return (1);
+}
+
+static int	tokenize_space(t_token_list *list, enum e_token_state state)
+{
+	t_token	*token;
+
+	token = new_token(" ", 1, WHITE_SPACE, state);
+	if (!token)
+		return (0);
+	add_token_last(list, token);
+	return (1);
+}
+
+static int	tokenize(t_token_list *list, char *input, int i,
+				enum e_token_state *state)
+{
+	if (in_charset(input[i]))
+		return (i + tokenize_word(list, input + i, *state));
+	if (input[i] == '\'')
+		return (i + tokenize_quote(list, state, 1));
+	if (input[i] == '\"')
+		return (i + tokenize_quote(list, state, 2));
+	if (input[i] == '$')
+		return (i + tokenize_env(list, input + i, *state));
+	if (input[i] == '<' || input[i] == '>')
+		return (i + tokenize_redir(list, input + i, *state));
+	if (input[i] == '|')
+		return (i + tokenize_pipe(list, *state));
+	if (ft_isspace(input[i]))
+		return (i + tokenize_space(list, *state));
+	return (i);
+}
+
+int	add_tokens_from_input(t_data *data, char *input)
+{
+	int					i;
+	enum e_token_state	state;
+
+	data->token_list = init_list(data->token_list);
+	if (!data->token_list)
+		return (0);
+	i = 0;
+	state = GENERAL;
+	while (input[i])
+	{
+		i = tokenize(data->token_list, input, i, &state);
+	}
+	return (1);
+}
