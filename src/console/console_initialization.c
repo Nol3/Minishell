@@ -20,10 +20,10 @@ void	console_initialization(t_data *data)
 			continue ;
 		if (add_commands_from_input(data))
 			continue ;
-		//ft_pipex(data);
-		//if (*input != '\0')
-		//	add_history(input);
-		//restore_lists(&data, input);
+		ft_pipex(data);
+		// if (*input != '\0')
+		// 	add_history(input);
+		// restore_lists(&data, input);
 	}
 	//clear_history();
 }
