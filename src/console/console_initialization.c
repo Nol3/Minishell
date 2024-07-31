@@ -1,5 +1,7 @@
 #include "../../include/minishell.h"
 
+
+
 void	console_initialization(t_data *data)
 {
 	char	*input;
