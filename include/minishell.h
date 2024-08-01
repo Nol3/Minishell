@@ -94,6 +94,35 @@ int				add_tokens_from_input(t_data *data, char *input);
 
 /*
 -----------------------------
+PARSE/LEXER
+-----------------------------
+*/
+
+//validators_utils.c
+
+/*
+Given a token type, checks if it's a redirection or not
+@return 1 if a redirection, 0 if not
+*/
+int				is_redir(int type);
+
+/*
+Gets the next or previous token that is not a white space
+@param next 1 if next token, 0 if previous token
+*/
+t_token			*skip_spaces(t_token *token, int next);
+
+//valid_token_list.c
+
+/*
+It iterates through all the token list to see if there are
+any syntax errors.
+@return 1 if syntax is ok, 0 if not
+*/
+int				valid_token_list(t_token_list *list);
+
+/*
+-----------------------------
 PARSE/COMMANDS
 -----------------------------
 */
