@@ -26,7 +26,6 @@ void ft_cd(const char *path, t_data *data)
 	}
 	else
 	{
-		//data->envp_list = malloc(sizeof(t_envp_list));
 		data->envp_list->key = "PWD";
 		data->envp_list->value = new_path;
 		data->envp_list->next = NULL;
