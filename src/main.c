@@ -30,7 +30,8 @@ int	main(int argc, char **argv, char **enpv)
 	if (!data)
 		return (print_error("Data initialization failed"));
 	print_data(data);
-	console_initialization(data);
+	initialize_console(data);
+	//console_initialization(data);
 	status = data->status;
 	free_data(data);
 	return (status);
