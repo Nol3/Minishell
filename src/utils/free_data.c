@@ -1,15 +1,5 @@
 #include "../../include/minishell.h"
 
-static void	free_strs(char **strs)
-{
-	int	i;
-
-	i = -1;
-	while (strs[++i])
-		free(strs[i]);
-	free(strs);
-}
-
 static void	free_envp_list(t_data *data)
 {
 	t_envp_list	*current;
@@ -29,31 +19,6 @@ static void	free_envp_list(t_data *data)
 	}
 }
 
-static void	free_token_list(t_data *data)
-{
-	free_list(data->token_list);
-}
-
-static void	free_cmd_list(t_data *data)
-{
-	t_cmd	*current;
-	t_cmd	*to_delete;
-
-	current = data->cmd_list->first;
-	to_delete = NULL;
-	while (current)
-	{
-		if (current->choosen_path)
-			free_strs(current->choosen_path);
-		if (current->args)
-			free_strs(current->args);
-		to_delete = current;
-		current = current->next;
-		free(to_delete);
-	}
-	free(data->cmd_list);
-}
-
 void	free_data(t_data *data)
 {
 	int	i;
@@ -67,7 +32,7 @@ void	free_data(t_data *data)
 	if (data->envp)
 		free_strs(data->envp);
 	free_envp_list(data);
-	free_token_list(data);
-	free_cmd_list(data);
+	free_token_list(data->token_list);
+	free_cmd_list(data->cmd_list);
 	free(data);
 }

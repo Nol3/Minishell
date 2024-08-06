@@ -28,7 +28,7 @@ char	*expanded_token(t_token *token, t_envp_list *list)
 	char		*value;
 	char		*copy;
 
-	if (token->type == ENV)
+	if (token->type != ENV)
 		return (NULL);
 	value = get_value((token->content) + 1, list);
 	copy = ft_strdup(value);

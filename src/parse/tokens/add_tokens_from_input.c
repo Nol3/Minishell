@@ -73,7 +73,7 @@ int	add_tokens_from_input(t_data *data, char *input)
 	int					j;
 	enum e_token_state	state;
 
-	data->token_list = init_list(data->token_list);
+	data->token_list = init_token_list(data->token_list);
 	if (!data->token_list)
 		return (0);
 	i = 0;
@@ -82,7 +82,7 @@ int	add_tokens_from_input(t_data *data, char *input)
 	{
 		j = tokenize(data->token_list, input, i, &state);
 		if (i == j)
-			return (free_list(data->token_list), 0);
+			return (free_token_list(data->token_list), 0);
 		i = j;
 	}
 	print_list(data->token_list);

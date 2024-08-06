@@ -54,16 +54,16 @@ PARSE/TOKENS
 -----------------------------
 */
 
-//list_utils.c
+//token_list_utils.c
 
 /*
 Checks if a token list is empty
 */
-int				is_empty(t_token_list *list);
+int				is_token_empty(t_token_list *list);
 /*
 Initializes the token list
 */
-t_token_list	*init_list(t_token_list *list);
+t_token_list	*init_token_list(t_token_list *list);
 /*
 Creates a new token from its arguments.
 Returns a complete token if everything went ok,
@@ -78,7 +78,7 @@ void			add_token_last(t_token_list *list, t_token *new);
 /*
 Frees the whole list
 */
-void			free_list(t_token_list *list);
+void			free_token_list(t_token_list *list);
 
 
 //token_utils.c
