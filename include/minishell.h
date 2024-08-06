@@ -132,4 +132,15 @@ char		*abs_bin_path(char *cmd, char **envp);
 char		*ft_valid_cmd(char *cmd);
 void		ft_free_matrix(char **envp);
 
+//built-in functions
+void	ft_cd(const char *path, t_data *data);
+void	ft_echo(t_data data);
+void	ft_env(t_data data);
+void	ft_exit(t_data data);
+void	ft_export(t_data data);
+int		ft_pwd(void);
+int		pwd(char **cmd);
+int		ft_unset(t_data data, char *tuple);
+int		unset(t_data *data, char **cmd);
+
 #endif
