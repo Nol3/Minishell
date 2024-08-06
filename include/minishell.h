@@ -132,6 +132,9 @@ char		*abs_bin_path(char *cmd, char **envp);
 char		*ft_valid_cmd(char *cmd);
 void		ft_free_matrix(char **envp);
 
+
+//Meter las "char	*built_in_cmd[8];" en relación las funciones
+//además de las funciones adicionales de cd, explorar como debería ir env
 //built-in functions
 void	ft_cd(const char *path, t_data *data);
 void	ft_echo(t_data data);
