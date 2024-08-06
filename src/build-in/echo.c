@@ -1,25 +1,21 @@
 #include "../../include/minishell.h"
-
-void	ft_echo(t_data data)
+bool ft_new_line(char **str)
 {
-	int		i;
-	int		n_flag;
+	if (ft_strncmp())
+		return (true);
+	else
+		return (false);
+}
 
-	i = 1;
-	n_flag = 0;
-	if (data->cmd_list->argv[i] && !ft_strcmp(data->cmd_list->argv[i], "-n"))
-	{
-		n_flag = 1;
-		i++;
-	}
-	while (data->cmd_list->argv[i])
-	{
-		ft_putstr_fd(data->cmd_list->argv[i], STDOUT);
-		if (data->cmd_list->argv[i + 1])
-			ft_putchar_fd(' ', STDOUT);
-		i++;
-	}
-	if (!n_flag)
-		ft_putchar_fd('\n', STDOUT);
-	data->status = 0;
+void	ft_echo(t_cmd *cmd, char **command)
+{
+
+}
+
+int echo(t_data *data, char **cmd)
+{
+	if (ft_strncmp(cmd[0], "echo", 4) == 0 && cmd[0][4] == '\0')
+		return (ft_echo(data->cmd_list, cmd));
+	else
+		return (0);
 }
