@@ -1,5 +1,5 @@
 NAME = minishell
-FLAGS = -Wall -Werror -Wextra -g -lreadline
+FLAGS = -Wall -Werror -Wextra -g
 FILES = $(shell find src -type f -name "*.c")
 OBJS = $(FILES:.c=.o)
 DATE = $(shell /usr/bin/date)
@@ -27,7 +27,7 @@ re: fclean all
 git:
 	git add .
 	git commit -m "Daily sync $(DATE)"
-	git push origin alejandro
+	git push origin alcarden
 
 .PHONY: re all fclean clean git
 

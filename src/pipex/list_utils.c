@@ -72,3 +72,21 @@ char	*ft_valid_cmd(char *cmd)
 	}
 	return (valid_cmd);
 }
+
+void	ft_free_matrix(char **envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[i])
+	{
+		if (envp[i])
+		{
+			free(envp[i]);
+			envp[i] = NULL;
+		}
+		i++;
+	}
+	free(envp);
+	envp = NULL;
+}
