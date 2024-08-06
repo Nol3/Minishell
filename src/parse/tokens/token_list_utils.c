@@ -1,11 +1,11 @@
 #include "../../../include/minishell.h"
 
-int	is_empty(t_token_list *list)
+int	is_token_empty(t_token_list *list)
 {
 	return (list->first == NULL);
 }
 
-t_token_list	*init_list(t_token_list *list)
+t_token_list	*init_token_list(t_token_list *list)
 {
 	list = (t_token_list *)ft_calloc(sizeof(t_token_list), 1);
 	if (!list)
@@ -34,7 +34,7 @@ t_token	*new_token(char *content, int len,
 
 void	add_token_last(t_token_list *list, t_token *new)
 {
-	if (is_empty(list))
+	if (is_token_empty(list))
 		list->first = new;
 	else
 	{
@@ -45,7 +45,7 @@ void	add_token_last(t_token_list *list, t_token *new)
 	list->size++;
 }
 
-void	free_list(t_token_list *list)
+void	free_token_list(t_token_list *list)
 {
 	t_token	*tmp;
 

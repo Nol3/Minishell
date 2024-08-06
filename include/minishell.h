@@ -1,8 +1,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "command.h"
 # include "token.h"
+# include "command.h"
 # include "../libft/libft.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -15,13 +15,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-
-typedef struct s_envp_list
-{
-	char				*key;
-	char				*value;
-	struct s_envp_list	*next;
-}						t_envp_list;
 
 typedef struct s_data
 {
