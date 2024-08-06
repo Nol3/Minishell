@@ -2,6 +2,7 @@
 # define MINISHELL_H
 
 # include "defines.h"
+# include "command.h"
 # include "token.h"
 # include "../libft/libft.h"
 # include <errno.h>
@@ -24,15 +25,6 @@ typedef struct s_envp_list
 	struct s_envp_list	*next;
 }						t_envp_list;
 
-typedef struct s_cmd
-{
-	char				**command;
-	char				**choosen_path;
-	int					fd_in;
-	int					fd_out;
-	struct s_cmd		*next;
-}						t_cmd;
-
 typedef struct s_data
 {
 	char				*built_in_cmd[8];
@@ -41,14 +33,16 @@ typedef struct s_data
 	char				**envp;
 	t_envp_list			*envp_list;
 	t_token_list		*token_list;
-	t_cmd				*cmd_list;
+	t_cmd_list			*cmd_list;
 }						t_data;
 
 extern int g_pack;
 
 void	parse_variables(char *line);
 /*
+-----------------------------
 UTILS
+-----------------------------
 */
 
 /*
@@ -92,6 +86,48 @@ and returns 0 if not
 @param input Any string
 */
 int				add_tokens_from_input(t_data *data, char *input);
+
+/*
+-----------------------------
+PARSE/LEXER
+-----------------------------
+*/
+
+//validators_utils.c
+
+/*
+Given a token type, checks if it's a redirection or not
+@return 1 if a redirection, 0 if not
+*/
+int				is_redir(int type);
+
+/*
+Gets the next or previous token that is not a white space
+@param next 1 if next token, 0 if previous token
+*/
+t_token			*skip_spaces(t_token *token, int next);
+
+//valid_token_list.c
+
+/*
+It iterates through all the token list to see if there are
+any syntax errors.
+@return 1 if syntax is ok, 0 if not
+*/
+int				valid_token_list(t_token_list *list);
+
+/*
+-----------------------------
+PARSE/EXPANDER
+-----------------------------
+*/
+
+/*
+@param token with type ENV
+@return value of the variable if it exists, empty string
+if it doesn't
+*/
+char			*expanded_token(t_token *token, t_envp_list *list);
 
 /*
 -----------------------------

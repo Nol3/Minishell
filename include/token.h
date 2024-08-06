@@ -13,7 +13,7 @@ enum e_token_type
 	WORD = -1,
 	WHITE_SPACE = ' ',
 	NEW_LINE = '\n',
-	QOUTE = '\'',
+	QUOTE = '\'',
 	DOUBLE_QUOTE = '\"',
 	ESCAPE = '\\',
 	ENV = '$',
@@ -109,7 +109,7 @@ Can modify the state of the quotes
 @param quote 1 if single quote, 2 if double quote
 @return Length of the word added if correct, 0 if not
 */
-int				tokenize_quote(t_token_list *list,
+int				tokenize_quote(t_token_list *list, char *str,
 					enum e_token_state *state, int quote);
 
 /*

@@ -49,6 +49,8 @@ void	free_list(t_token_list *list)
 {
 	t_token	*tmp;
 
+	if (!list)
+		return ;
 	tmp = list->first;
 	while (tmp)
 	{
