@@ -39,18 +39,19 @@ static void	free_cmd_list(t_data *data)
 	t_cmd	*current;
 	t_cmd	*to_delete;
 
-	current = data->cmd_list;
+	current = data->cmd_list->first;
 	to_delete = NULL;
 	while (current)
 	{
 		if (current->choosen_path)
 			free_strs(current->choosen_path);
-		if (current->command)
-			free_strs(current->command);
+		if (current->args)
+			free_strs(current->args);
 		to_delete = current;
 		current = current->next;
 		free(to_delete);
 	}
+	free(data->cmd_list);
 }
 
 void	free_data(t_data *data)

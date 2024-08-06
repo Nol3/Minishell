@@ -1,7 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define "defines.h"
+# include "command.h"
 # include "token.h"
 # include "../libft/libft.h"
 # include <errno.h>
@@ -23,15 +23,6 @@ typedef struct s_envp_list
 	struct s_envp_list	*next;
 }						t_envp_list;
 
-typedef struct s_cmd
-{
-	char				**command;
-	char				**choosen_path;
-	int					fd_in;
-	int					fd_out;
-	struct s_cmd		*next;
-}						t_cmd;
-
 typedef struct s_data
 {
 	char				*built_in_cmd[8];
@@ -40,14 +31,16 @@ typedef struct s_data
 	char				**envp;
 	t_envp_list			*envp_list;
 	t_token_list		*token_list;
-	t_cmd				*cmd_list;
+	t_cmd_list			*cmd_list;
 }						t_data;
 
 int g_pack;
 
 void	parse_variables(char *line);
 /*
+-----------------------------
 UTILS
+-----------------------------
 */
 
 /*
@@ -120,6 +113,19 @@ any syntax errors.
 @return 1 if syntax is ok, 0 if not
 */
 int				valid_token_list(t_token_list *list);
+
+/*
+-----------------------------
+PARSE/EXPANDER
+-----------------------------
+*/
+
+/*
+@param token with type ENV
+@return value of the variable if it exists, empty string
+if it doesn't
+*/
+char			*expanded_token(t_token *token, t_envp_list *list);
 
 /*
 -----------------------------
