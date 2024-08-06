@@ -174,15 +174,27 @@ void		ft_free_matrix(char **envp);
 //Meter las "char	*built_in_cmd[8];" en relación las funciones
 //además de las funciones adicionales de cd, explorar como debería ir env
 //built-in functions
+//cd functions
 void	ft_cd(const char *path, t_data *data);
+void 	ft_cd_home(void);
+void 	ft_cd_father(void);
+void 	ft_cd_confirm(t_data data);
+void 	ft_cd_root(void);
+//echo
 bool	ft_new_line(char **str);
 int		ft_echo(char **command);
 int 	echo(char **cmd);
-void	ft_env(t_data data);
+//env
+void	ft_env(t_data *data);
+int env(t_data *data);
+//exit
 //void	ft_exit(t_data data);
+//export
 void	ft_export(t_data data);
+//pwd
 int		ft_pwd(void);
 int		pwd(char **cmd);
+//unset
 //int		ft_unset(t_data data, char *tuple);
 //int		unset(t_data *data, char **cmd);
 
