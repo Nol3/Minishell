@@ -1,5 +1,20 @@
 #include "../../../include/minishell.h"
 
+/*
+static void	print_node(t_token *token)
+{
+	int	i;
+
+	i = 0;
+	printf("content: ");
+	while (i < token->len)
+		putchar(token->content[i++]);
+	printf(", len: %i", token->len);
+	printf(", state: %i", token->state);
+	printf(", token: %i\n", token->type);
+}
+*/
+
 static int	error_with_pipe(t_token *token)
 {
 	t_token	*prev;
@@ -33,8 +48,8 @@ static int	error_with_quotes(t_token **token)
 		current = current->next;
 	*token = current;
 	if (!current)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 int	valid_token_list(t_token_list *list)
