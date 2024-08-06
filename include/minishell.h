@@ -10,6 +10,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include <stdbool.h>
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -34,6 +35,7 @@ typedef struct s_data
 	t_envp_list			*envp_list;
 	t_token_list		*token_list;
 	t_cmd_list			*cmd_list;
+	t_cmd				*current_cmd;
 }						t_data;
 
 extern int g_pack;
@@ -173,13 +175,15 @@ void		ft_free_matrix(char **envp);
 //además de las funciones adicionales de cd, explorar como debería ir env
 //built-in functions
 void	ft_cd(const char *path, t_data *data);
-void	ft_echo(t_data data);
+bool	ft_new_line(char **str);
+int		ft_echo(char **command);
+int 	echo(char **cmd);
 void	ft_env(t_data data);
-void	ft_exit(t_data data);
+//void	ft_exit(t_data data);
 void	ft_export(t_data data);
 int		ft_pwd(void);
 int		pwd(char **cmd);
-int		ft_unset(t_data data, char *tuple);
-int		unset(t_data *data, char **cmd);
+//int		ft_unset(t_data data, char *tuple);
+//int		unset(t_data *data, char **cmd);
 
 #endif
