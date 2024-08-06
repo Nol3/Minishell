@@ -8,16 +8,18 @@ int	ft_pwd(void)
 	if (pwd == NULL)
 	{
 		ft_putstr_fd("minishell: pwd: error retrieving current directory.", STDERR);
-		ft_putendl_fd(strerror(errno), STDERR);
+		ft_putendl_fd(strerror(errno), STDERR_FILENO);
 		return (1);
 	}
-	ft_putendl_fd(pwd, STDOUT);
+	ft_putendl_fd(pwd, STDOUT_FILENO);
 	free(pwd);
 	return (0);
 }
 
 int	pwd(char **cmd)
 {
+	if (cmd == NULL || cmd[0] == NULL)
+		return (2);
 	if (ft_strncmp(cmd[0], "pwd", 3) == 0 && cmd[0][3] == '\0')
 		return (ft_pwd());
 	else

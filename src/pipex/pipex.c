@@ -46,6 +46,7 @@ int	ft_exec_cmd(t_data *data, t_cmd *node, int cmd_count)
 	status = 0;
 	//build-in commands
 	g_pack = 1;
+	//t_redir
 	return (ft_fork(data, node, cmd_count));
 }
 
