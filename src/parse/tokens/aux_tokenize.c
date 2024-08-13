@@ -65,7 +65,7 @@ int	tokenize_env(t_token_list *list, char *str, enum e_token_state state)
 			while ((ft_isalnum(str[i]) && ft_isalpha(str[1]))
 				|| (ft_isdigit(str[i]) && ft_isdigit(str[1])))
 				i++;
-		token = new_token(str, i, WORD, state);
+		token = new_token(str, i, ENV, state);
 		if (!token)
 			return (0);
 	}

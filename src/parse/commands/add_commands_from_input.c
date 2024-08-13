@@ -1,5 +1,56 @@
 #include "../../../include/minishell.h"
 
+// static void	print_node(t_token *token)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	printf("content: ");
+// 	while (i < token->len)
+// 		putchar(token->content[i++]);
+// 	printf(", len: %i", token->len);
+// 	printf(", state: %i", token->state);
+// 	printf(", token: %i\n", token->type);
+// }
+
+// static void	print_list(t_token_list *list)
+// {
+// 	t_token	*token;
+
+// 	token = list->first;
+// 	while (token)
+// 	{
+// 		print_node(token);
+// 		token = token->next;
+// 	}
+// }
+
+static void	print_cmd(t_cmd *cmd)
+{
+	int	i;
+
+	if (!cmd || !(cmd->args))
+		return ;
+	i = -1;
+	while (cmd->args[++i])
+	{
+		printf("Arg %i: %s\n", i, cmd->args[i]);
+	}
+}
+
+static void	print_cmd_list(t_cmd_list *cmd_list)
+{
+	t_cmd	*cmd;
+
+	cmd = cmd_list->first;
+	while (cmd)
+	{
+		print_cmd(cmd);
+		cmd = cmd->next;
+	}
+}
+
+
 static t_token	*add_command_to_list(t_cmd_list *cmd_list, t_token *current,
 									int args_size, t_envp_list *envp_list)
 {
@@ -41,5 +92,6 @@ int	add_commands_from_input(t_data *data)
 			return (0);
 		current = updated;
 	}
+	print_cmd_list(data->cmd_list);
 	return (1);
 }
