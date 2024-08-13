@@ -2,32 +2,19 @@
 
 int				g_pack;
 
-int	ft_cmdlist_size(t_cmd *cmd_list)
-{
-	int		size;
-	t_cmd	*current;
-
-	size = 0;
-	current = cmd_list;
-	while (current)
-	{
-		size++;
-		current = current->next;
-	}
-	return (size);
-}
-
 int	ft_pipex(t_data *data)
 {
 	t_cmd	*current;
 	int		status;
 	int		cmd_count;
 
-	current = data->current_cmd;
+	current = data->cmd_list->first;
 	status = 0;
 	cmd_count = 0;
-	if (ft_cmdlist_size(current) > 0)
+	if (data->cmd_list->size > 1)
 		cmd_count = 1;
+	if (current)
+		ft_exec_builtin(data, &current);
 	while (current)
 	{
 		status = ft_exec_cmd(data, current, cmd_count);
@@ -39,38 +26,17 @@ int	ft_pipex(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-enum e_built_in	get_builtin_type(const char *cmd)
+int	ft_exec_builtin(t_data *data, t_cmd **node)
 {
-	if (strcmp(cmd, "echo") == 0)
-		return (B_ECHO);
-	else if (strcmp(cmd, "cd") == 0)
-		return (B_CD);
-	else if (strcmp(cmd, "pwd") == 0)
-		return (B_PWD);
-	else if (strcmp(cmd, "export") == 0)
-		return (B_EXPORT);
-	else if (strcmp(cmd, "unset") == 0)
-		return (B_UNSET);
-	else if (strcmp(cmd, "env") == 0)
-		return (B_ENV);
-	else if (strcmp(cmd, "exit") == 0)
-		return (B_EXIT);
-	else
-		return (NOT_BUILT_IN);
-}
-
-int	ft_exec_builtin(t_data *data, char *cmd)
-{
-	enum e_built_in	builtin_type;
+	int	exit;
 
 	(void)data;
-	builtin_type = get_builtin_type(cmd);
-	// if (builtin_type == B_ECHO)
-	// 	return (ft_echo(data->current_cmd->args));
+	if ((*node)->built_in == B_ECHO)
+		exit = echo((*node)->args);
 	// else if (builtin_type == B_CD)
-	// 	return (ft_cd(data, data->current_cmd->args));
-	// else if (builtin_type == B_PWD)
-	// 	return (ft_pwd());
+	// 	exit = ft_cd(data, data->current_cmd->args);
+	else if ((*node)->built_in == B_PWD)
+		exit = ft_pwd();
 	// else if (builtin_type == B_EXPORT)
 	// 	return (ft_export(data, data->current_cmd->args));
 	// else if (builtin_type == B_UNSET)
@@ -79,8 +45,10 @@ int	ft_exec_builtin(t_data *data, char *cmd)
 	// 	return (ft_env(data));
 	// else if (builtin_type == B_EXIT)
 	// 	return (ft_exit(data, data->current_cmd->args));
-	// else
+	else
 		return (EXIT_FAILURE);
+	(*node) = (*node)->next;
+	return (exit);
 }
 
 int	ft_exec_cmd(t_data *data, t_cmd *node, int cmd_count)
@@ -88,7 +56,6 @@ int	ft_exec_cmd(t_data *data, t_cmd *node, int cmd_count)
 	int	status;
 
 	status = 0;
-	//ft_exec_builtin(t_data *data, char *cmd);
 	g_pack = 1;
 	// t_redir
 	return (ft_fork(data, node, cmd_count));

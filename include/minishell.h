@@ -149,10 +149,8 @@ Executes the commands
 @param data Fully initialized with tokens and commands
 */
 
-int 			ft_cmdlist_size(t_cmd *cmd_list);
 int				ft_pipex(t_data *data);
-enum e_built_in	get_builtin_type(const char *cmd);
-int				ft_exec_builtin(t_data *data, char *cmd);
+int				ft_exec_builtin(t_data *data, t_cmd **node);
 int				ft_exec_cmd(t_data *data, t_cmd *node, int cmd_count);
 int				ft_fork(t_data *data, t_cmd *node, int cmd_count);
 int				ft_child_process(t_data *data, t_cmd *node);
@@ -190,7 +188,6 @@ int				env(t_data *data);
 void			ft_export(t_data data);
 //pwd
 int				ft_pwd(void);
-int				pwd(char **cmd);
 //unset
 //int			ft_unset(t_data data, char *tuple);
 //int			unset(t_data *data, char **cmd);
