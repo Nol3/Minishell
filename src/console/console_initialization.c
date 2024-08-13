@@ -23,9 +23,8 @@ void	console_initialization(t_data *data)
 		if (!add_commands_from_input(data))
 			continue ;
 		ft_pipex(data);
-		// if (*input != '\0')
-		// 	add_history(input);
-		// restore_lists(&data, input);
+		if (*input != '\0')
+		 	add_history(input);
+		//meter el clear/free data del input
 	}
-	//clear_history();
 }

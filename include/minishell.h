@@ -149,6 +149,7 @@ Executes the commands
 @param data Fully initialized with tokens and commands
 */
 
+void			print_data(t_data *data);
 int				ft_pipex(t_data *data);
 int				ft_exec_builtin(t_data *data, t_cmd **node);
 int				ft_exec_cmd(t_data *data, t_cmd *node, int cmd_count);
