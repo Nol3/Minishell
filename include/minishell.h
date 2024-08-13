@@ -34,7 +34,7 @@ typedef struct s_data
 
 extern int g_pack;
 
-void	parse_variables(char *line);
+void			parse_variables(char *line);
 /*
 -----------------------------
 UTILS
@@ -149,48 +149,47 @@ Executes the commands
 @param data Fully initialized with tokens and commands
 */
 
-int 		ft_cmdlist_size(t_cmd *cmd_list);
-int			ft_pipex(t_data *data);
-int			ft_exec_cmd(t_data *data, t_cmd *node, int cmd_count);
-int			ft_fork(t_data *data, t_cmd *node, int cmd_count);
-int			ft_child_process(t_data *data, t_cmd *node);
-void		ft_redir_fd_std(int fd, int std, int fd2);
-//int		ft_is_builtin(t_data *data, char *str);
-//int		ft_built_in(t_data *data, t_cmd *node);
+int				ft_pipex(t_data *data);
+int				ft_exec_builtin(t_data *data, t_cmd **node);
+int				ft_exec_cmd(t_data *data, t_cmd *node, int cmd_count);
+int				ft_fork(t_data *data, t_cmd *node, int cmd_count);
+int				ft_child_process(t_data *data, t_cmd *node);
+void			ft_redir_fd_std(int fd, int std, int fd2);
+//int			ft_is_builtin(t_data *data, char *str);
+//int			ft_built_in(t_data *data, t_cmd *node);
 
 //list_utils funciones:
-char		**get_paths(char *envp[]);
-char		*abs_bin_path(char *cmd, char **envp);
-char		*ft_valid_cmd(char *cmd);
-void		ft_free_matrix(char **envp);
+char			**get_paths(char *envp[]);
+char			*abs_bin_path(char *cmd, char **envp);
+char			*ft_valid_cmd(char *cmd);
+void			ft_free_matrix(char **envp);
 
 
 //Meter las "char	*built_in_cmd[8];" en relación las funciones
 //además de las funciones adicionales de cd, explorar como debería ir env
 //built-in functions
 //cd functions
-int 	ft_cd(t_data *data, char **cmd);
-void	ft_cd_previus_directory(t_data *data);
-void 	ft_cd_home(void);
-void 	ft_cd_father(void);
-void 	ft_cd_confirm(t_data *data);
-void 	ft_cd_root(void);
+int 			ft_cd(t_data *data, char **cmd);
+void			ft_cd_previus_directory(t_data *data);
+void 			ft_cd_home(void);
+void 			ft_cd_father(void);
+void 			ft_cd_confirm(t_data *data);
+void 			ft_cd_root(void);
 //echo
-bool	ft_new_line(char **str);
-int		ft_echo(char **command);
-int 	echo(char **cmd);
+bool			ft_new_line(char **str);
+int				ft_echo(char **command);
+int 			echo(char **cmd);
 //env
-void	ft_env(t_data *data);
-int env(t_data *data);
+void			ft_env(t_data *data);
+int				env(t_data *data);
 //exit
-//void	ft_exit(t_data data);
+//void			ft_exit(t_data data);
 //export
-void	ft_export(t_data data);
+void			ft_export(t_data data);
 //pwd
-int		ft_pwd(void);
-int		pwd(char **cmd);
+int				ft_pwd(void);
 //unset
-//int		ft_unset(t_data data, char *tuple);
-//int		unset(t_data *data, char **cmd);
+//int			ft_unset(t_data data, char *tuple);
+//int			unset(t_data *data, char **cmd);
 
 #endif

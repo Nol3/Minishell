@@ -15,13 +15,3 @@ int	ft_pwd(void)
 	free(pwd);
 	return (0);
 }
-
-int	pwd(char **cmd)
-{
-	if (cmd == NULL || cmd[0] == NULL)
-		return (2);
-	if (ft_strncmp(cmd[0], "pwd", 3) == 0 && cmd[0][3] == '\0')
-		return (ft_pwd());
-	else
-		return (2);
-}

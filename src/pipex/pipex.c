@@ -1,21 +1,6 @@
 #include "../../include/minishell.h"
 
-int g_pack;
-
-int	ft_cmdlist_size(t_cmd *cmd_list)
-{
-	int		size;
-	t_cmd	*current;
-
-	size = 0;
-	current = cmd_list;
-	while (current)
-	{
-		size++;
-		current = current->next;
-	}
-	return (size);
-}
+int				g_pack;
 
 int	ft_pipex(t_data *data)
 {
@@ -23,11 +8,13 @@ int	ft_pipex(t_data *data)
 	int		status;
 	int		cmd_count;
 
-	current = data->current_cmd;
+	current = data->cmd_list->first;
 	status = 0;
 	cmd_count = 0;
-	if (ft_cmdlist_size(current) > 1)
+	if (data->cmd_list->size > 1)
 		cmd_count = 1;
+	if (current)
+		ft_exec_builtin(data, &current);
 	while (current)
 	{
 		status = ft_exec_cmd(data, current, cmd_count);
@@ -39,14 +26,38 @@ int	ft_pipex(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
+int	ft_exec_builtin(t_data *data, t_cmd **node)
+{
+	int	exit;
+
+	(void)data;
+	if ((*node)->built_in == B_ECHO)
+		exit = echo((*node)->args);
+	// else if (builtin_type == B_CD)
+	// 	exit = ft_cd(data, data->current_cmd->args);
+	else if ((*node)->built_in == B_PWD)
+		exit = ft_pwd();
+	// else if (builtin_type == B_EXPORT)
+	// 	return (ft_export(data, data->current_cmd->args));
+	// else if (builtin_type == B_UNSET)
+	// 	return (ft_unset(data, data->current_cmd->args));
+	// else if (builtin_type == B_ENV)
+	// 	return (ft_env(data));
+	// else if (builtin_type == B_EXIT)
+	// 	return (ft_exit(data, data->current_cmd->args));
+	else
+		return (EXIT_FAILURE);
+	(*node) = (*node)->next;
+	return (exit);
+}
+
 int	ft_exec_cmd(t_data *data, t_cmd *node, int cmd_count)
 {
 	int	status;
 
 	status = 0;
-	//build-in commands
 	g_pack = 1;
-	//t_redir
+	// t_redir
 	return (ft_fork(data, node, cmd_count));
 }
 
@@ -58,12 +69,12 @@ int	ft_fork(t_data *data, t_cmd *node, int cmd_count)
 	status = UNDEF_FD;
 	id = fork();
 	cmd_count = 0;
-	if (id == 0 && cmd_count == 0) //child process
+	if (id == 0 && cmd_count == 0) // child process
 	{
-		//check if it is a built-in command to-do
+		// check if it is a built-in command to-do
 		ft_child_process(data, node);
 	}
-	else //parent process
+	else // parent process
 	{
 		waitpid(id, &status, 0);
 		if (node->fd_in != UNDEF_FD && node->fd_in != STDIN)
