@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void ft_cd(t_data *data, char **cmd)
+int ft_cd(t_data *data, char **cmd)
 {
 	if (cmd[1] == NULL)
 		ft_cd_home();
@@ -56,6 +56,7 @@ void ft_cd_previus_directory(t_data *data)
 {
 	char *old_pwd;
 
+	(void)data;
 	old_pwd = getenv("OLDPWD");
 	if (old_pwd == NULL)
 	{
@@ -108,11 +109,11 @@ void ft_cd_father(void)
 	//ft_cd(father, data);
 }
 
-void ft_cd_confirm(t_data data)
+void ft_cd_confirm(t_data *data)
 {
 	printf("%s\n", "you are in the following directory:");
-	printf("%s\n", data.envp_list->key);
-	printf("%s\n", data.envp_list->value);
+	printf("%s\n", data->envp_list->key);
+	printf("%s\n", data->envp_list->value);
 	return ;
 }
 

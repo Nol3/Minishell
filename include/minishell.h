@@ -169,10 +169,11 @@ void		ft_free_matrix(char **envp);
 //además de las funciones adicionales de cd, explorar como debería ir env
 //built-in functions
 //cd functions
-void	ft_cd(const char *path, t_data *data);
+int 	ft_cd(t_data *data, char **cmd);
+void	ft_cd_previus_directory(t_data *data);
 void 	ft_cd_home(void);
 void 	ft_cd_father(void);
-void 	ft_cd_confirm(t_data data);
+void 	ft_cd_confirm(t_data *data);
 void 	ft_cd_root(void);
 //echo
 bool	ft_new_line(char **str);
