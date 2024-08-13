@@ -11,8 +11,10 @@ static t_redir	*get_redir(t_token **token, t_envp_list *envp_list)
 		return (NULL);
 	*token = (*token)->next;
 	file = get_arg(token, envp_list);
-	if (!file || file[0] == '\0')
+	if (!file)
 		return (NULL);
+	if (file[0] == '\0')
+		return (print_error("No such file or directory"), NULL);
 	redir = new_redir(file, type);
 	if (!redir)
 		return (NULL);

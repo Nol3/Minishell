@@ -19,6 +19,8 @@ char	**get_args(t_token **token, int args_size, t_envp_list *envp_list)
 		args[i] = get_arg(token, envp_list);
 		if (!args[i])
 			return (free_strs(args), NULL);
+		if (args[i][0] == '\0')
+			free(args[i--]);
 		i++;
 		if (*token && ((*token)->type == WHITE_SPACE))
 			*token = skip_spaces(*token, 1);

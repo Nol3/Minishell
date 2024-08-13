@@ -25,6 +25,25 @@
 // 	}
 // }
 
+static void	print_redir(t_redir *redir)
+{
+	if (!redir)
+		return ;
+	printf("%i, %s\n", redir->type, redir->file);
+}
+
+static void	print_redir_list(t_redir_list *redir_list)
+{
+	t_redir	*redir;
+
+	redir = redir_list->first;
+	while (redir)
+	{
+		print_redir(redir);
+		redir = redir->next;
+	}
+}
+
 static void	print_cmd(t_cmd *cmd)
 {
 	int	i;
@@ -36,6 +55,7 @@ static void	print_cmd(t_cmd *cmd)
 	{
 		printf("Arg %i: %s\n", i, cmd->args[i]);
 	}
+	print_redir_list(cmd->redir_list);
 }
 
 static void	print_cmd_list(t_cmd_list *cmd_list)
@@ -49,7 +69,6 @@ static void	print_cmd_list(t_cmd_list *cmd_list)
 		cmd = cmd->next;
 	}
 }
-
 
 static t_token	*add_command_to_list(t_cmd_list *cmd_list, t_token *current,
 									int args_size, t_envp_list *envp_list)
