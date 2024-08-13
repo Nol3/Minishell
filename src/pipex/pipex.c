@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-int g_pack;
+int				g_pack;
 
 int	ft_cmdlist_size(t_cmd *cmd_list)
 {
@@ -26,7 +26,7 @@ int	ft_pipex(t_data *data)
 	current = data->current_cmd;
 	status = 0;
 	cmd_count = 0;
-	if (ft_cmdlist_size(current) > 1)
+	if (ft_cmdlist_size(current) > 0)
 		cmd_count = 1;
 	while (current)
 	{
@@ -39,14 +39,58 @@ int	ft_pipex(t_data *data)
 	return (EXIT_SUCCESS);
 }
 
+enum e_built_in	get_builtin_type(const char *cmd)
+{
+	if (strcmp(cmd, "echo") == 0)
+		return (B_ECHO);
+	else if (strcmp(cmd, "cd") == 0)
+		return (B_CD);
+	else if (strcmp(cmd, "pwd") == 0)
+		return (B_PWD);
+	else if (strcmp(cmd, "export") == 0)
+		return (B_EXPORT);
+	else if (strcmp(cmd, "unset") == 0)
+		return (B_UNSET);
+	else if (strcmp(cmd, "env") == 0)
+		return (B_ENV);
+	else if (strcmp(cmd, "exit") == 0)
+		return (B_EXIT);
+	else
+		return (NOT_BUILT_IN);
+}
+
+int	ft_exec_builtin(t_data *data, char *cmd)
+{
+	enum e_built_in	builtin_type;
+
+	(void)data;
+	builtin_type = get_builtin_type(cmd);
+	// if (builtin_type == B_ECHO)
+	// 	return (ft_echo(data->current_cmd->args));
+	// else if (builtin_type == B_CD)
+	// 	return (ft_cd(data, data->current_cmd->args));
+	// else if (builtin_type == B_PWD)
+	// 	return (ft_pwd());
+	// else if (builtin_type == B_EXPORT)
+	// 	return (ft_export(data, data->current_cmd->args));
+	// else if (builtin_type == B_UNSET)
+	// 	return (ft_unset(data, data->current_cmd->args));
+	// else if (builtin_type == B_ENV)
+	// 	return (ft_env(data));
+	// else if (builtin_type == B_EXIT)
+	// 	return (ft_exit(data, data->current_cmd->args));
+	// else
+		return (EXIT_FAILURE);
+}
+
 int	ft_exec_cmd(t_data *data, t_cmd *node, int cmd_count)
 {
 	int	status;
 
 	status = 0;
-	//build-in commands
+	//ft_exec_builtin(t_data *data, char *cmd);
 	g_pack = 1;
-	//t_redir
+	// t_redir
 	return (ft_fork(data, node, cmd_count));
 }
 
@@ -58,12 +102,12 @@ int	ft_fork(t_data *data, t_cmd *node, int cmd_count)
 	status = UNDEF_FD;
 	id = fork();
 	cmd_count = 0;
-	if (id == 0 && cmd_count == 0) //child process
+	if (id == 0 && cmd_count == 0) // child process
 	{
-		//check if it is a built-in command to-do
+		// check if it is a built-in command to-do
 		ft_child_process(data, node);
 	}
-	else //parent process
+	else // parent process
 	{
 		waitpid(id, &status, 0);
 		if (node->fd_in != UNDEF_FD && node->fd_in != STDIN)
