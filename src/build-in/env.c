@@ -2,31 +2,27 @@
 
 void	ft_env(t_data *data)
 {
-	t_envp_list *current;
+	t_envp_list	*current;
 
 	current = data->envp_list;
 	while (current)
 	{
-		ft_putstr_fd(current->key, STDOUT);
-		ft_putchar_fd('=', STDOUT);
-		ft_putstr_fd(current->value, STDOUT);
-		ft_putchar_fd('\n', STDOUT);
+		ft_printf("%s=%s\n",
+			current->key,
+			current->value);
 		current = current->next;
 	}
-	data->status = 0;
 }
 
 int env(t_data *data)
 {
-	char **cmd;
-
-	cmd = data->current_cmd->args;
-	if (cmd[1])
+	if (data->current_cmd->args[1])
 	{
 		print_error("env");
 		return (1);
 	}
-	else if (ft_strncmp(cmd[0], "env", 3) == 0 && cmd[0][3] == '\0')
+	else if (ft_strncmp(data->current_cmd->args[0], "env", 3) == 0
+		&& data->current_cmd->args[0][3] == '\0')
 		ft_env(data);
 	else
 	{

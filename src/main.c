@@ -1,19 +1,5 @@
 #include "../include/minishell.h"
 
-void	print_data(t_data *data)
-{
-	t_envp_list	*current;
-
-	current = data->envp_list;
-	while (current)
-	{
-		ft_printf("%s%s\n",
-			current->key,
-			current->value);
-		current = current->next;
-	}
-}
-
 /*
 valgrind --leak-check=full --track-origins=yes --log-file=valgrind-out.txt ./minishell
 */
