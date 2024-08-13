@@ -30,7 +30,7 @@ int	ft_exec_builtin(t_data *data, t_cmd **node)
 {
 	int	exit;
 
-	(void)data;
+	exit = 0;
 	if ((*node)->built_in == B_ECHO)
 		exit = echo((*node)->args);
 	// else if (builtin_type == B_CD)
@@ -41,8 +41,8 @@ int	ft_exec_builtin(t_data *data, t_cmd **node)
 	// 	return (ft_export(data, data->current_cmd->args));
 	// else if (builtin_type == B_UNSET)
 	// 	return (ft_unset(data, data->current_cmd->args));
-	// else if (builtin_type == B_ENV)
-	// 	return (ft_env(data));
+	else if ((*node)->built_in == B_ENV)
+	 	print_data(data);
 	// else if (builtin_type == B_EXIT)
 	// 	return (ft_exit(data, data->current_cmd->args));
 	else

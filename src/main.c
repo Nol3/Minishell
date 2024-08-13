@@ -1,13 +1,13 @@
 #include "../include/minishell.h"
 
-static void	print_data(t_data *data)
+void	print_data(t_data *data)
 {
 	t_envp_list	*current;
 
 	current = data->envp_list;
 	while (current)
 	{
-		ft_printf("key: %s, value: %s\n",
+		ft_printf("%s%s\n",
 			current->key,
 			current->value);
 		current = current->next;
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **enpv)
 	data = get_initialized_data(enpv);
 	if (!data)
 		return (print_error("Data initialization failed"));
-	print_data(data);
+	//print_data(data);
 	console_initialization(data);
 	status = data->status;
 	free_data(data);
