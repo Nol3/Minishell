@@ -3,8 +3,8 @@
 void	ft_export(t_data data)
 {
 	t_envp_list	*current;
-	t_envp_list	*tmp;
-	int			i;
+	//t_envp_list	*tmp;
+	//int			i;
 
 	current = data.envp_list;
 	while (current)

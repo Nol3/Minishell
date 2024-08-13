@@ -7,11 +7,10 @@ bool ft_new_line(char **str)
 		return (false);
 }
 
-int	ft_echo(t_cmd *cmd, char **command)
+int	ft_echo(char **command)
 {
 	int i;
 
-	(void)cmd;
 	i = 0;
 	if (command[1] == NULL)
 	{
@@ -32,10 +31,10 @@ int	ft_echo(t_cmd *cmd, char **command)
 	return (0);
 }
 
-int echo(t_data *data, char **cmd)
+int echo(char **cmd)
 {
 	if (ft_strncmp(cmd[0], "echo", 4) == 0 && cmd[0][4] == '\0')
-		return (ft_echo(data->cmd_list, cmd));
+		return (ft_echo(cmd));
 	else
 		return (0);
 }

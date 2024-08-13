@@ -23,7 +23,7 @@ int	ft_pipex(t_data *data)
 	int		status;
 	int		cmd_count;
 
-	current = data->cmd_list;
+	current = data->current_cmd;
 	status = 0;
 	cmd_count = 0;
 	if (ft_cmdlist_size(current) > 1)
@@ -95,10 +95,10 @@ int	ft_child_process(t_data *data, t_cmd *node)
 	og_stdout = dup(STDOUT);
 	child_process_redir(node);
 	paths = get_paths(data->envp);
-	tmp = abs_bin_path(node->command[0], paths);
+	tmp = abs_bin_path(node->args[0], paths);
 	if (!tmp)
 		exit(EXIT_FAILURE);
-	if (execve(tmp, node->command, data->envp) < 0)
+	if (execve(tmp, node->args, data->envp) < 0)
 	{
 		free(tmp);
 		ft_free_matrix(paths);
