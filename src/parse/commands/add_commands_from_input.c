@@ -86,6 +86,8 @@ int	add_commands_from_input(t_data *data)
 		return (0);
 	while (current)
 	{
+		if (current->type == PIPE_LINE)
+			current = current->next;
 		updated = add_command_to_list(data->cmd_list, current,
 				data->token_list->size, data->envp_list);
 		if (updated == current)

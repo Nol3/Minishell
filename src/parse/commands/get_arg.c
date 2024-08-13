@@ -48,7 +48,8 @@ char	*get_arg(t_token **token, t_envp_list *envp_list)
 
 	arg = (char *)ft_calloc(sizeof(char), 1);
 	aux = NULL;
-	*token = skip_spaces(*token, 1);
+	if (*token && ((*token)->type == WHITE_SPACE))
+		*token = skip_spaces(*token, 1);
 	while (*token)
 	{
 		if ((*token)->state == GENERAL)

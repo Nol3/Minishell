@@ -22,8 +22,9 @@ static int	error_with_pipe(t_token *token)
 
 	prev = skip_spaces(token, 0);
 	next = skip_spaces(token, 1);
-	if ((!prev || !next) || (prev->type != WORD
-			&& next->type != WORD && !is_redir(next->type)))
+	if (!prev || !next)
+		return (1);
+	if (prev->type != WORD && next->type != WORD && !is_redir(next->type))
 		return (1);
 	return (0);
 }

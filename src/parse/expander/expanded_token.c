@@ -16,7 +16,7 @@ static int	strs_are_equal(char *str1, char *str2)
 
 static char	*get_value(char *key, t_envp_list *list)
 {
-	while (list || !strs_are_equal(key, list->key))
+	while (list && !strs_are_equal(key, list->key))
 		list = list->next;
 	if (list)
 		return (list->value);

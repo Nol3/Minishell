@@ -51,7 +51,7 @@ int	tokenize_env(t_token_list *list, char *str, enum e_token_state state)
 	int		i;
 
 	i = 1;
-	if (in_charset(str[i + 1]) || str[i + 1] == '=')
+	if (in_charset(str[i]) || str[i] == '=')
 	{
 		token = new_token("$", i, WORD, state);
 		if (!token)
@@ -80,16 +80,18 @@ int	tokenize_redir(t_token_list *list, char *str, enum e_token_state state)
 
 	i = 0;
 	token = NULL;
-	if (str[i++] == '<')
+	if (str[i] == '<')
 	{
-		if (str[i + 1] == '<')
+		i++;
+		if (str[i] == '<')
 			token = new_token(str, ++i, HERE_DOC, state);
 		else
 			token = new_token(str, i, REDIR_IN, state);
 	}
-	else if (str[i++] == '>')
+	else if (str[i] == '>')
 	{
-		if (str[i + 1] == '>')
+		i++;
+		if (str[i] == '>')
 			token = new_token(str, ++i, DREDIR_OUT, state);
 		else
 			token = new_token(str, i, REDIR_OUT, state);
@@ -97,5 +99,5 @@ int	tokenize_redir(t_token_list *list, char *str, enum e_token_state state)
 	if (!token)
 		return (0);
 	add_token_last(list, token);
-	return (1);
+	return (i);
 }
