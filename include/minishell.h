@@ -151,10 +151,10 @@ Executes the commands
 
 void			print_data(t_data *data);
 int				ft_pipex(t_data *data);
-int				ft_exec_builtin(t_data *data, t_cmd **node);
-int				ft_exec_cmd(t_data *data, t_cmd *node, int cmd_count);
-int				ft_fork(t_data *data, t_cmd *node, int cmd_count);
-int				ft_child_process(t_data *data, t_cmd *node);
+int				ft_exec_builtin(t_data *data);
+int				ft_exec_cmd(t_data *data, int cmd_count);
+int				ft_fork(t_data *data, int cmd_count);
+int				ft_child_process(t_data *data);
 void			ft_redir_fd_std(int fd, int std, int fd2);
 //int			ft_is_builtin(t_data *data, char *str);
 //int			ft_built_in(t_data *data, t_cmd *node);
@@ -179,7 +179,7 @@ void 			ft_cd_root(void);
 //echo
 bool			ft_new_line(char **str);
 int				ft_echo(char **command);
-int 			echo(char **cmd);
+int 			echo(t_data *data);
 //env
 void			ft_env(t_data *data);
 int				env(t_data *data);

@@ -30,11 +30,12 @@ int	ft_echo(char **command)
 	return (0);
 }
 
-int echo(char **cmd)
+int echo(t_data *data)
 {
-	if (ft_strncmp(cmd[0], "echo", 4) == 0 && cmd[0][4] == '\0')
+	if (ft_strncmp(data->current_cmd->args[0], "echo", 4) == 0
+		&& data->current_cmd->args[0][4] == '\0')
 	{
-		return (ft_echo(cmd));
+		return (ft_echo(data->current_cmd->args));
 	}
 	else
 		return (0);
