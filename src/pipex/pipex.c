@@ -36,10 +36,10 @@ int	ft_exec_builtin(t_data *data)
 	// 	exit = ft_cd(data, data->current_cmd->args);
 	else if (data->current_cmd->built_in == B_PWD)
 		exit = ft_pwd();
-	// else if (builtin_type == B_EXPORT)
-	// 	return (ft_export(data, data->current_cmd->args));
-	// else if (builtin_type == B_UNSET)
-	// 	return (ft_unset(data, data->current_cmd->args));
+	else if (data->current_cmd->built_in == B_EXPORT)
+		exit = ft_export(data);
+	else if (data->current_cmd->built_in == B_UNSET)
+		exit = ft_unset(data);
 	else if (data->current_cmd->built_in == B_ENV)
 	{
 		printf("env\n");

@@ -14,7 +14,7 @@ void	ft_env(t_data *data)
 	}
 }
 
-int env(t_data *data)
+int	env(t_data *data)
 {
 	if (data->current_cmd->args[1])
 	{

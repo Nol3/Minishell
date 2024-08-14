@@ -1,5 +1,6 @@
 #include "../../include/minishell.h"
-bool ft_new_line(char **str)
+
+bool	ft_new_line(char **str)
 {
 	if (ft_strncmp(str[1], "-n", 2) == 0 && str[1][2] == '\0')
 		return (true);
@@ -9,28 +10,24 @@ bool ft_new_line(char **str)
 
 int	ft_echo(char **command)
 {
-	int i;
+	int	i;
 
-	i = 0;
-	if (command[1] == NULL)
+	i = 1;
+	if (command[i] == NULL)
 	{
-		write(1, "\n", 1);
+		ft_putstr_fd("\n", 1);
 		return (0);
-	}
-	if (ft_strncmp(command[i], "-n", 2) == 0 && !command[i + 1])
-		return (0);
-	if (ft_strncmp(command[i], "-n", 2) == 0 && command[i][2] == '\0')
-		i++;
-	while (command[++i])
-	{
+	return (EXIT_SUCCESS);
 		ft_putstr_fd(command[i], 1);
+		if (command[i++])
+			ft_putstr_fd(" ", 1);
 	}
-	if (ft_new_line(command) == false)
-		write(1, "\n", 1);
-	return (0);
+	if (ft_new_line(command) == true)
+		ft_putstr_fd("\n", 1);
+	return (EXIT_SUCCESS);
 }
 
-int echo(t_data *data)
+int	echo(t_data *data)
 {
 	if (ft_strncmp(data->current_cmd->args[0], "echo", 4) == 0
 		&& data->current_cmd->args[0][4] == '\0')
@@ -38,5 +35,5 @@ int echo(t_data *data)
 		return (ft_echo(data->current_cmd->args));
 	}
 	else
-		return (0);
+		return (EXIT_SUCCESS);
 }

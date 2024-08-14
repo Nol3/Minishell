@@ -1,53 +1,75 @@
 #include "../../include/minishell.h"
 
-// void	ft_delete_variable(t_data *data, char *tuple)
-// {
-// 	char	**new_envp;
-// 	int		i;
-// 	int		j;
+static int	strs_are_equal(char *str1, char *str2)
+{
+	int	size1;
+	int	size2;
 
-// 	new_envp = malloc(ft_matrix_size(data->envp) * sizeof(char *));
-// 	i = 0;
-// 	j = 0;
-// 	while (data->envp[j])
-// 	{
-// 		if (ft_contains(data->envp[j], tuple) == FALSE)
-// 		{
-// 			new_envp[i] = ft_strdup(data->envp[j]);
-// 			i++;
-// 		}
-// 		j++;
-// 	}
-// 	new_envp[i] = NULL;
-// 	ft_free_matrix(data->envp);
-// 	data->envp = ft_copy_matrix(new_envp);
-// 	return ;
-// }
+	size1 = ft_strlen(str1);
+	size2 = ft_strlen(str2);
+	if (size1 != size2)
+		return (0);
+	if (!ft_strncmp(str1, str2, size1))
+		return (1);
+	return (0);
+}
 
-// int	ft_unset(t_data data, char *tuple)
-// {
-// 	if (ft_env_exists(tuple, data->envp) == TRUE)
-// 	{
-// 		ft_delete_variable(data, tuple);
-// 		refill_envp_lst(data, data->envp);
-// 		return (0);
-// 	}
-// 	else
-// 		return (0);
-// }
+static void	free_envp_list(t_envp_list *list)
+{
+	t_envp_list	*current;
+	t_envp_list	*to_delete;
 
-// int	unset(t_data *data, char **cmd)
-// {
-// 	if (ft_strncmp(cmd[0], "unset", 5) == 0 && cmd[0][5] == '\0')
-// 	{
-// 		if (cmd[1])
-// 			return (ft_unset(data, cmd[1]));
-// 		else
-// 			return (0);
-// 	}
-// 	else
-// 	{
-// 		ft_print_error("Bad command");
-// 		return (1);
-// 	}
-// }
+	current = list;
+	to_delete = NULL;
+	while (current)
+	{
+		if (current->key)
+			free(current->key);
+		if (current->value)
+			free(current->value);
+		to_delete = current;
+		current = current->next;
+		free(to_delete);
+	}
+}
+
+static t_envp_list	*unset_variable(t_envp_list *current, char *key)
+{
+	t_envp_list	*first;
+	t_envp_list	*previous;
+
+	first = current;
+	previous = NULL;
+	while (current)
+	{
+		if (strs_are_equal(key, current->key))
+		{
+			if (!previous)
+				first = current->next;
+			if (previous)
+				previous->next = current->next;
+			current->next = NULL;
+			free_envp_list(current);
+			return (first);
+		}
+		previous = current;
+		current = current->next;
+	}
+	return (first);
+}
+
+int	ft_unset(t_data *data)
+{
+	int			i;
+	char		*key;
+
+	i = 0;
+	while (data->current_cmd->args[++i])
+	{
+		key = data->current_cmd->args[i];
+		if (key)
+			data->envp_list = unset_variable(data->envp_list, key);
+	}
+	data->status = 0;
+	return (EXIT_SUCCESS);
+}
