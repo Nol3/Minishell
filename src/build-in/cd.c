@@ -9,7 +9,7 @@ static char	*ft_get_env(char *key, t_envp_list *current)
 	{
 		if (strs_are_equal(key, current->key))
 		{
-			value = ft_strdup(current->value);
+			value = ft_strdup(current->value + 1);
 			return (value);
 		}
 		current = current->next;
@@ -39,7 +39,7 @@ static void	ft_reasign(char *key, char *value, t_envp_list *current)
 		if (strs_are_equal(key, current->key))
 		{
 			free(current->value);
-			current->value = ft_strdup(value);
+			current->value = ft_strdup(value + 1);
 			return ;
 		}
 		current = current->next;
@@ -53,32 +53,32 @@ static void	ft_reasign(char *key, char *value, t_envp_list *current)
  * @param data The data structure containing the environment variables.
  * @return 0 on success, 1 on failure.
  */
-static int	ft_cd(char *old_pwd, t_data *data)
+static int  ft_cd(char *old_pwd, t_data *data)
 {
-	char	*path;
-	char	*home;
+    char    *path;
+    char    *home;
 
-	path = ft_get_path(data);
-	printf("PATH: %s\nOLDPWD:%s\n", path, old_pwd);
-	if (path && !strs_are_equal(path, "-"))
-		path = ft_get_env("OLDPWD", data->envp_list);
-	if (!path || !strs_are_equal(path, ""))
-	{
-		home = ft_get_env("HOME", data->envp_list);
-		//printf("%s\n", home);
-		if (chdir(home) != 0)
-			return (free(home), print_error("CD: HOME not set"), 1);
-		free(home);
-	}
-	else if ((chdir(path) != 0))
-		return (print_error("CD: No such file or directory\n"), 1);
-	else
-	{
-		ft_reasign("OLDPWD", old_pwd, data->envp_list);
-		getcwd(old_pwd, sizeof(old_pwd));
-		ft_reasign("PWD", old_pwd, data->envp_list);
-	}
-	return (EXIT_SUCCESS);
+    path = ft_get_path(data);
+    printf("PATH: %s\nOLDPWD:%s\n", path, old_pwd);
+	//if (path && !strs_are_equal(path, "-"))
+        //path = ft_get_env("OLDPWD", data->envp_list);
+    if (!path || !strs_are_equal(path, ""))
+    {
+        home = ft_get_env("HOME", data->envp_list);
+        printf("%s\n", home);
+        if (chdir(home) != 0)
+            return (free(home), print_error("CD: HOME not set"), 1);
+        free(home);
+    }
+    else if ((chdir(path) != 0))
+        return (print_error("CD: No such file or directory\n"), 1);
+    else
+    {
+        ft_reasign("OLDPWD", old_pwd, data->envp_list);
+        getcwd(old_pwd, sizeof(old_pwd));
+        ft_reasign("PWD", old_pwd, data->envp_list);
+    }
+    return (EXIT_SUCCESS);
 }
 
 int cd(t_data *data)
