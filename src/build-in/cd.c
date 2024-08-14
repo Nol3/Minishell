@@ -9,7 +9,7 @@ static char	*ft_get_env(char *key, t_envp_list *current)
 	{
 		if (strs_are_equal(key, current->key))
 		{
-			value = ft_strdup(current->value + 1);
+			value = ft_strdup(current->value);
 			return (value);
 		}
 		current = current->next;
@@ -22,10 +22,12 @@ static char	*ft_get_path(t_data *data)
 	char	*path;
 
 	path = ft_get_env("PWD", data->envp_list);
-	if (path && strs_are_equal(path, "-"))
+	//printf("FT_GET_PATH: %s\n", path);
+	if (path || strs_are_equal(path, "-"))
 	{
 		free(path);
 		path = ft_get_env("OLDPWD", data->envp_list);
+		//printf("FT_GET_OLDPATH: %s\n", path);
 		if (!path[0])
 			free(path);
 	}
@@ -60,8 +62,6 @@ static int  ft_cd(char *old_pwd, t_data *data)
 
     path = ft_get_path(data);
     printf("PATH: %s\nOLDPWD:%s\n", path, old_pwd);
-	//if (path && !strs_are_equal(path, "-"))
-        //path = ft_get_env("OLDPWD", data->envp_list);
     if (!path || !strs_are_equal(path, ""))
     {
         home = ft_get_env("HOME", data->envp_list);
