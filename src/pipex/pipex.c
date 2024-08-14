@@ -32,8 +32,8 @@ int	ft_exec_builtin(t_data *data)
 	exit = 0;
 	if (data->current_cmd->built_in == B_ECHO)
 		exit = echo(data);
-	// else if (builtin_type == B_CD)
-	// 	exit = ft_cd(data, data->current_cmd->args);
+	else if (data->current_cmd->built_in == B_CD)
+		exit = cd(data);
 	else if (data->current_cmd->built_in == B_PWD)
 		exit = ft_pwd();
 	// else if (builtin_type == B_EXPORT)
