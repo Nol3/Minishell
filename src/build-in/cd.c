@@ -1,133 +1,112 @@
 #include "../../include/minishell.h"
 
-int ft_cd(t_data *data, char **cmd)
+static int	strs_are_equal(char *str1, char *str2)
 {
-	if (cmd[1] == NULL)
-		ft_cd_home();
-	else if (ft_strncmp(cmd[1], "-", 1) == 0)
-	{
-		if (cmd[1][1] == '\0')
-			ft_cd_previus_directory(data);
-		else
-			return (1);
-	}
-	else if (ft_strncmp(cmd[1], "~", 1) == 0)
-	{
-		if (cmd[1][1] == '\0')
-			ft_cd_home();
-		else
-			return (1);
-	}
-	else if (ft_strncmp(cmd[1], "..", 2) == 0)
-	{
-		if (cmd[1][2] == '\0')
-			ft_cd_father();
-		else
-			return (1);
-	}
-	else if (ft_strncmp(cmd[1], ".", 1) == 0)
-	{
-		if (cmd[1][1] == '\0')
-			ft_cd_confirm(data);
-		else
-			return (1);
-	}
-	else if (ft_strncmp(cmd[1], "/", 1) == 0)
-	{
-		if (cmd[1][1] == '\0')
-			ft_cd_root();
-		else
-			return (1);
-	}
-	return (1);
-	// else
-	// {
-	// 	if (chdir(cmd[1]) == -1)
-	// 	{
-	// 		print_error("cd: no directory");
-	// 		return ;
-	// 	}
-	// }
+	int	size1;
+	int	size2;
+
+	size1 = ft_strlen(str1);
+	size2 = ft_strlen(str2);
+	if (size1 != size2)
+		return (0);
+	if (!ft_strncmp(str1, str2, size1))
+		return (1);
+	return (0);
 }
 
-//hacer las opciones de cd. (cd - cd ~ cd .. cd . cd /)
-
-void ft_cd_previus_directory(t_data *data)
+static char	*ft_get_env(char *key, t_envp_list *current)
 {
-	char *old_pwd;
+	char	*value;
 
-	(void)data;
-	old_pwd = getenv("OLDPWD");
-	if (old_pwd == NULL)
+	value = NULL;
+	while (current)
 	{
-		print_error("cd: OLDPWD not set");
-		return ;
+		if (strs_are_equal(key, current->key))
+		{
+			value = ft_strdup(current->value);
+			return (value);
+		}
+		current = current->next;
 	}
+	return (value);
+}
+
+static char	ft_get_path(const t_data *data)
+{
+	char	*path;
+
+	path = ft_get_path(data->envp_list);
+	if (path && strs_are_equal(path, "-"))
+	{
+		free(path);
+		path = ft_get_env("OLDPWD", data->envp_list);
+		if (!path[0])
+			free(path);
+	}
+	return (path);
+}
+
+static void	ft_reasign(char *name, char *value)
+{
+	int		cnt;
+	char	**tmp;
+	char	*tmp2;
+
+	cnt = 0;
+	while (g_data.env[cnt])
+	{
+		tmp = ft_split(g_data.env[cnt], '=');
+		if (ft_strncmp(tmp[0], name, ft_strlen(name)) == 0)
+		{
+			free(g_data.env[cnt]);
+			tmp2 = ft_strjoin(name, "=");
+			g_data.env[cnt] = ft_strjoin(tmp2, value);
+			free(tmp2);
+			tmp = ft_clean_matrix(tmp);
+			return ;
+		}
+		tmp = ft_clean_matrix(tmp);
+		cnt++;
+	}
+	g_data.vars_mod = 1;
+}
+
+/**
+ * @brief Changes the current directory to the one specified by the path.
+ *
+ * @param old_pwd The current working directory.
+ * @param data The data structure containing the environment variables.
+ * @return 0 on success, 1 on failure.
+ */
+int	ft_cd(const char *old_pwd, const t_data *data)
+{
+	char	*path;
+	char	*home;
+
+	path = ft_get_path(data);
+	if (!path)
+	{
+		home = ft_get_env("HOME", data->envp_list);
+		if (chdir(home) != 0)
+			return (free(home), ft_print_error("CD: HOME not set"), 1);
+		free(home);
+	}
+	else if ((chdir(path) != 0))
+		return (ft_print_error("CD: No such file or directory\n"), 1);
 	else
 	{
-		chdir(old_pwd);
-		printf("%s\n", old_pwd);
+		ft_reasign("OLDPWD", old_pwd, data->envp);
+		getcwd(old_pwd, sizeof(old_pwd));
+		ft_reasign("PWD", old_pwd, data->envp);
+		return (0);
 	}
-	//ft_cd(old_pwd, data);
 }
 
-void  ft_cd_home(void)
+int cd(t_data data)
 {
-	char *home;
+	char	current_path[255];
 
-	home = getenv("HOME");
-	if (home == NULL)
-	{
-		print_error("cd: HOME not set");
-		return ;
-	}
-	else
-	{
-		chdir(home);
-		printf("%s\n", home);
-	}	
-	//ft_cd(home, data);
-}
-
-void ft_cd_father(void)
-{
-	char *current;
-	char *father;
-
-	current = getcwd(NULL, 0);
-	father = ft_strrchr(current, '/');
-	if (father == NULL)
-	{
-		print_error("cd: PWD not set");
-		return ;
-	}
-	else
-	{
-		chdir(father);
-		printf("%s\n", father);
-	}
-	//ft_cd(father, data);
-}
-
-void ft_cd_confirm(t_data *data)
-{
-	printf("%s\n", "you are in the following directory:");
-	printf("%s\n", data->envp_list->key);
-	printf("%s\n", data->envp_list->value);
-	return ;
-}
-
-void ft_cd_root(void)
-{
-	char *root;
-
-	root = getenv("");
-	if (root == NULL)
-	{
-		print_error("cd: ROOT not set");
-		return ;
-	}
-	else
-		chdir(root);
-	//ft_cd(root, data);
+	getcwd(current_path, sizeof(current_path));
+	ft_cd(current_path, &data);
+	return (0);
 }
