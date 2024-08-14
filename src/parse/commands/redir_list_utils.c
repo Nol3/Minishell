@@ -40,16 +40,18 @@ void	add_redir_last(t_redir_list *list, t_redir *new)
 
 void	free_redir_list(t_redir_list *list)
 {
-	t_redir	*tmp;
+	t_redir	*current;
+	t_redir	*to_delete;
 
 	if (!list)
 		return ;
-	tmp = list->first;
-	while (tmp)
+	current = list->first;
+	while (current)
 	{
-		free(tmp->file);
-		free(tmp);
-		tmp = tmp->next;
+		to_delete = current;
+		current = current->next;
+		free(to_delete->file);
+		free(to_delete);
 	}
 	free(list);
 }
