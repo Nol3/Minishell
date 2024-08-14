@@ -186,11 +186,10 @@ int				env(t_data *data);
 //exit
 //void			ft_exit(t_data data);
 //export
-void			ft_export(t_data data);
+int				ft_export(t_data *data);
 //pwd
 int				ft_pwd(void);
 //unset
-//int			ft_unset(t_data data, char *tuple);
-//int			unset(t_data *data, char **cmd);
+int				ft_unset(t_data *data);
 
 #endif
