@@ -43,10 +43,10 @@ int	ft_exec_builtin(t_data *data)
 	else if (data->current_cmd->built_in == B_ENV)
 	{
 		printf("env\n");
-	 	exit = env(data);
+		exit = env(data);
 	}
-	// else if (builtin_type == B_EXIT)
-	// 	return (ft_exit(data, data->current_cmd->args));
+	else if (data->current_cmd->built_in == B_EXIT)
+		exit = ft_exit(data);
 	else
 		return (EXIT_FAILURE);
 	data->current_cmd = data->current_cmd->next;

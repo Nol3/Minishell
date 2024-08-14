@@ -1,0 +1,155 @@
+==2016996== Memcheck, a memory error detector
+==2016996== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==2016996== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==2016996== Command: ./minishell
+==2016996== Parent PID: 2008772
+==2016996==
+==2016996== Invalid read of size 8
+==2016996==    at 0x404A1B: free_token_list (token_list_utils.c:59)
+==2016996==    by 0x40190E: free_data (free_data.c:36)
+==2016996==    by 0x4054A5: main (main.c:22)
+==2016996==  Address 0x4b71008 is 24 bytes inside a block of size 40 free'd
+==2016996==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x404A16: free_token_list (token_list_utils.c:58)
+==2016996==    by 0x40190E: free_data (free_data.c:36)
+==2016996==    by 0x4054A5: main (main.c:22)
+==2016996==  Block was alloc'd at
+==2016996==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x4057DB: ft_calloc (in /home/angcampo/cursus/minishell/minishell)
+==2016996==    by 0x4048C3: new_token (token_list_utils.c:22)
+==2016996==    by 0x404431: tokenize_word (aux_tokenize.c:11)
+==2016996==    by 0x404020: tokenize (add_tokens_from_input.c:54)
+==2016996==    by 0x403F7A: add_tokens_from_input (add_tokens_from_input.c:83)
+==2016996==    by 0x40280E: console_initialization (console_initialization.c:19)
+==2016996==    by 0x405492: main (main.c:20)
+==2016996==
+==2016996== Invalid read of size 8
+==2016996==    at 0x402DE6: free_cmd_list (cmd_list_utils.c:56)
+==2016996==    by 0x40191B: free_data (free_data.c:37)
+==2016996==    by 0x4054A5: main (main.c:22)
+==2016996==  Address 0x4b712d8 is 40 bytes inside a block of size 56 free'd
+==2016996==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x402DE1: free_cmd_list (cmd_list_utils.c:55)
+==2016996==    by 0x40191B: free_data (free_data.c:37)
+==2016996==    by 0x4054A5: main (main.c:22)
+==2016996==  Block was alloc'd at
+==2016996==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x4057DB: ft_calloc (in /home/angcampo/cursus/minishell/minishell)
+==2016996==    by 0x402CA1: new_cmd (cmd_list_utils.c:21)
+==2016996==    by 0x402A33: add_command_to_list (add_commands_from_input.c:88)
+==2016996==    by 0x40294D: add_commands_from_input (add_commands_from_input.c:110)
+==2016996==    by 0x402840: console_initialization (console_initialization.c:23)
+==2016996==    by 0x405492: main (main.c:20)
+==2016996==
+==2016996==
+==2016996== HEAP SUMMARY:
+==2016996==     in use at exit: 208,570 bytes in 241 blocks
+==2016996==   total heap usage: 901 allocs, 660 frees, 253,555 bytes allocated
+==2016996==
+==2016996== 2 bytes in 1 blocks are indirectly lost in loss record 1 of 76
+==2016996==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x404B45: ft_strndup (token_utils.c:18)
+==2016996==    by 0x4048EC: new_token (token_list_utils.c:25)
+==2016996==    by 0x4042DA: tokenize_space (add_tokens_from_input.c:43)
+==2016996==    by 0x4041C2: tokenize (add_tokens_from_input.c:66)
+==2016996==    by 0x403F7A: add_tokens_from_input (add_tokens_from_input.c:83)
+==2016996==    by 0x40280E: console_initialization (console_initialization.c:19)
+==2016996==    by 0x405492: main (main.c:20)
+==2016996==
+==2016996== 10 bytes in 2 blocks are indirectly lost in loss record 4 of 76
+==2016996==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x404B45: ft_strndup (token_utils.c:18)
+==2016996==    by 0x4048EC: new_token (token_list_utils.c:25)
+==2016996==    by 0x404431: tokenize_word (aux_tokenize.c:11)
+==2016996==    by 0x404020: tokenize (add_tokens_from_input.c:54)
+==2016996==    by 0x403F7A: add_tokens_from_input (add_tokens_from_input.c:83)
+==2016996==    by 0x40280E: console_initialization (console_initialization.c:19)
+==2016996==    by 0x405492: main (main.c:20)
+==2016996==
+==2016996== 10 bytes in 2 blocks are indirectly lost in loss record 5 of 76
+==2016996==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x4057DB: ft_calloc (in /home/angcampo/cursus/minishell/minishell)
+==2016996==    by 0x40311B: concatenated_words (get_arg.c:9)
+==2016996==    by 0x402F58: get_arg (get_arg.c:61)
+==2016996==    by 0x4032EF: get_args (get_args.c:19)
+==2016996==    by 0x4029C6: add_command_to_list (add_commands_from_input.c:81)
+==2016996==    by 0x40294D: add_commands_from_input (add_commands_from_input.c:110)
+==2016996==    by 0x402840: console_initialization (console_initialization.c:23)
+==2016996==    by 0x405492: main (main.c:20)
+==2016996==
+==2016996== 24 bytes in 1 blocks are indirectly lost in loss record 17 of 76
+==2016996==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x4057DB: ft_calloc (in /home/angcampo/cursus/minishell/minishell)
+==2016996==    by 0x40381A: init_redir_list (redir_list_utils.c:10)
+==2016996==    by 0x4035A0: get_redir_list (get_redir_list.c:30)
+==2016996==    by 0x4029EF: add_command_to_list (add_commands_from_input.c:84)
+==2016996==    by 0x40294D: add_commands_from_input (add_commands_from_input.c:110)
+==2016996==    by 0x402840: console_initialization (console_initialization.c:23)
+==2016996==    by 0x405492: main (main.c:20)
+==2016996==
+==2016996== 32 bytes in 1 blocks are indirectly lost in loss record 19 of 76
+==2016996==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x4057DB: ft_calloc (in /home/angcampo/cursus/minishell/minishell)
+==2016996==    by 0x403215: get_args (get_args.c:8)
+==2016996==    by 0x4029C6: add_command_to_list (add_commands_from_input.c:81)
+==2016996==    by 0x40294D: add_commands_from_input (add_commands_from_input.c:110)
+==2016996==    by 0x402840: console_initialization (console_initialization.c:23)
+==2016996==    by 0x405492: main (main.c:20)
+==2016996==
+==2016996== 40 bytes in 1 blocks are indirectly lost in loss record 20 of 766 (24 direct, 122 indirect) bytes in 1 blocks are definitely lost in loss record 31 of 76
+==2016996==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x4057DB: ft_calloc (in /home/angcampo/cursus/minishell/minishell)
+==2016996==    by 0x402C4A: init_cmd_list (cmd_list_utils.c:10)
+==2016996==    by 0x4028D9: add_commands_from_input (add_commands_from_input.c:103)
+==2016996==    by 0x402840: console_initialization (console_initialization.c:23)
+==2016996==    by 0x405492: main (main.c:20)
+==2016996==
+==2016996== 156 (24 direct, 132 indirect) bytes in 1 blocks are definitely lost in loss record 33 of 76
+==2016996==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x4057DB: ft_calloc (in /home/angcampo/cursus/minishell/minishell)
+==2016996==    by 0x40486A: init_token_list (token_list_utils.c:10)
+==2016996==    by 0x403F1C: add_tokens_from_input (add_tokens_from_input.c:76)
+==2016996==    by 0x40280E: console_initialization (console_initialization.c:19)
+==2016996==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x4057DB: ft_calloc (in /home/angcampo/cursus/minishell/minishell)
+==2016996==    by 0x402CA1: new_cmd (cmd_list_utils.c:21)
+==2016996==    by 0x402A33: add_command_to_list (add_commands_from_input.c:88)
+==2016996==    by 0x40294D: add_commands_from_input (add_commands_from_input.c:110)
+==2016996==    by 0x402840: console_initialization (console_initialization.c:23)
+==2016996==    by 0x405492: main (main.c:20)
+==2016996==
+==2016996== 80 bytes in 2 blocks are indirectly lost in loss record 27 of 76
+==2016996==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x4057DB: ft_calloc (in /home/angcampo/cursus/minishell/minishell)
+==2016996==    by 0x4048C3: new_token (token_list_utils.c:22)
+==2016996==    by 0x404431: tokenize_word (aux_tokenize.c:11)
+==2016996==    by 0x404020: tokenize (add_tokens_from_input.c:54)
+==2016996==    by 0x403F7A: add_tokens_from_input (add_tokens_from_input.c:83)
+==2016996==    by 0x40280E: console_initialization (console_initialization.c:19)
+==2016996==    by 0x405492: main (main.c:20)
+==2016996==
+==2016996== 146 (24 direct, 122 indirect) bytes in 1 blocks are definitely lost in loss record 31 of 76
+==2016996==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x4057DB: ft_calloc (in /home/angcampo/cursus/minishell/minishell)
+==2016996==    by 0x402C4A: init_cmd_list (cmd_list_utils.c:10)
+==2016996==    by 0x4028D9: add_commands_from_input (add_commands_from_input.c:103)
+==2016996==    by 0x402840: console_initialization (console_initialization.c:23)
+==2016996==    by 0x405492: main (main.c:20)
+==2016996==
+==2016996== 156 (24 direct, 132 indirect) bytes in 1 blocks are definitely lost in loss record 33 of 76
+==2016996==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==2016996==    by 0x4057DB: ft_calloc (in /home/angcampo/cursus/minishell/minishell)
+==2016996==    by 0x40486A: init_token_list (token_list_utils.c:10)
+==2016996==    by 0x403F1C: add_tokens_from_input (add_tokens_from_input.c:76)
+==2016996==    by 0x40280E: console_initialization (console_initialization.c:19)
+==2016996==    by 0x405492: main (main.c:20)
+==2016996==
+==2016996== LEAK SUMMARY:
+==2016996==    definitely lost: 48 bytes in 2 blocks
+==2016996==    indirectly lost: 254 bytes in 11 blocks
+==2016996==      possibly lost: 0 bytes in 0 blocks
+==2016996==    still reachable: 0 bytes in 0 blocks
+==2016996==         suppressed: 208,268 bytes in 228 blocks
+==2016996==
+==2016996== For lists of detected and suppressed errors, rerun with: -s
+==2016996== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)

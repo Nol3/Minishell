@@ -1,3 +1,8 @@
 #include "../../include/minishell.h"
 
-//void	ft_exit(t_data data)
+int	ft_exit(t_data *data)
+{
+	data->exit = 1;
+	printf("Bye\n");
+	return (EXIT_SUCCESS);
+}

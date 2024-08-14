@@ -1,7 +1,8 @@
 #include "../include/minishell.h"
 
 /*
-valgrind --leak-check=full --track-origins=yes --log-file=valgrind-out.txt ./minishell
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
+--suppressions=suppressions.supp --log-file=valgrind-out.txt ./minishell
 */
 
 int	main(int argc, char **argv, char **enpv)

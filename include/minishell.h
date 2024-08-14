@@ -184,7 +184,7 @@ int 			echo(t_data *data);
 void			ft_env(t_data *data);
 int				env(t_data *data);
 //exit
-//void			ft_exit(t_data data);
+int				ft_exit(t_data *data);
 //export
 int				ft_export(t_data *data);
 //pwd

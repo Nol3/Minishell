@@ -25,6 +25,7 @@ void	console_initialization(t_data *data)
 		ft_pipex(data);
 		if (*input != '\0')
 		 	add_history(input);
+		free(input);
 		//meter el clear/free data del input
 	}
 }
