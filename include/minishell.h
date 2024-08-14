@@ -62,6 +62,12 @@ Liberates all data from the struct
 void			free_data(t_data *data);
 
 /*
+Compares 2 strings
+@return 1 if equal, 0 if not
+*/
+int				strs_are_equal(char *str1, char *str2);
+
+/*
 @brief Inits console
 */
 void			console_initialization(t_data *data);
@@ -170,12 +176,7 @@ void			ft_free_matrix(char **envp);
 //además de las funciones adicionales de cd, explorar como debería ir env
 //built-in functions
 //cd functions
-int 			ft_cd(t_data *data, char **cmd);
-void			ft_cd_previus_directory(t_data *data);
-void 			ft_cd_home(void);
-void 			ft_cd_father(void);
-void 			ft_cd_confirm(t_data *data);
-void 			ft_cd_root(void);
+int				cd(t_data *data);
 //echo
 bool			ft_new_line(char **str);
 int				ft_echo(char **command);
