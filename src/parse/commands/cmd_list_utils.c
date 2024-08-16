@@ -42,18 +42,20 @@ void	add_cmd_last(t_cmd_list *list, t_cmd *new)
 
 void	free_cmd_list(t_cmd_list *list)
 {
-	t_cmd	*tmp;
+	t_cmd	*current;
+	t_cmd	*to_delete;
 
 	if (!list)
 		return ;
-	tmp = list->first;
-	while (tmp)
+	current = list->first;
+	while (current)
 	{
-		free_strs(tmp->args);
-		free_strs(tmp->choosen_path);
-		free_redir_list(tmp->redir_list);
-		free(tmp);
-		tmp = tmp->next;
+		to_delete = current;
+		current = current->next;
+		free_strs(to_delete->args);
+		free_strs(to_delete->choosen_path);
+		free_redir_list(to_delete->redir_list);
+		free(to_delete);
 	}
 	free(list);
 }

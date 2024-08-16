@@ -34,6 +34,7 @@ void	free_data(t_data *data)
 	free_envp_list(data);
 	if (data->token_list)
 		free_token_list(data->token_list);
-	free_cmd_list(data->cmd_list);
+	if (data->cmd_list)
+		free_cmd_list(data->cmd_list);
 	free(data);
 }

@@ -24,6 +24,15 @@ void	console_initialization(t_data *data)
 		if (*input != '\0')
 		 	add_history(input);
 		free(input);
-		//meter el clear/free data del input
+		if (data->token_list)
+		{
+			free_token_list(data->token_list);
+			data->token_list = NULL;
+		}
+		if (data->cmd_list)
+		{
+			free_cmd_list(data->cmd_list);
+			data->cmd_list = NULL;
+		}
 	}
 }

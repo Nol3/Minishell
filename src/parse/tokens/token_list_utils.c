@@ -47,16 +47,18 @@ void	add_token_last(t_token_list *list, t_token *new)
 
 void	free_token_list(t_token_list *list)
 {
-	t_token	*tmp;
+	t_token	*current;
+	t_token	*to_delete;
 
 	if (!list)
 		return ;
-	tmp = list->first;
-	while (tmp)
+	current = list->first;
+	while (current)
 	{
-		free(tmp->content);
-		free(tmp);
-		tmp = tmp->next;
+		to_delete = current;
+		current = current->next;
+		free(to_delete->content);
+		free(to_delete);
 	}
 	free(list);
 }

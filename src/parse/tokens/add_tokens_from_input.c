@@ -73,6 +73,7 @@ int	add_tokens_from_input(t_data *data, char *input)
 	int					j;
 	enum e_token_state	state;
 
+	data->token_list = NULL;
 	data->token_list = init_token_list(data->token_list);
 	if (!data->token_list)
 		return (0);
