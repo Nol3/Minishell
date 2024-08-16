@@ -5,7 +5,7 @@ char	**get_args(t_token **token, int args_size, t_envp_list *envp_list)
 	char	**args;
 	int		i;
 
-	args = (char **)ft_calloc(sizeof(char *), args_size + 1);
+	args = (char **)ft_calloc(sizeof(char *), args_size + 2);
 	if (!args)
 		return (NULL);
 	if (!token)

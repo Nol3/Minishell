@@ -14,23 +14,30 @@ static char	*ft_get_env(char *key, t_envp_list *current)
 		}
 		current = current->next;
 	}
+	if (!value)
+		value = ft_strdup("");
 	return (value);
 }
 
 static char	*ft_get_path(t_data *data)
 {
 	char	*path;
+	char 	*path_redir;
 
-	path = ft_get_env("PWD", data->envp_list);
-	//printf("FT_GET_PATH: %s\n", path);
-	if (!path || strs_are_equal(path, "-"))
-	{
+	path = malloc(sizeof(char) * 4096);
+	path_redir = ft_get_env("OLDPWD", data->envp_list);
+	if (!getcwd(path, 4096))
 		free(path);
-		path = ft_get_env("OLDPWD", data->envp_list);
-		//printf("FT_GET_OLDPATH: %s\n", path);
-		if (!path[0])
-			free(path);
+	if (strs_are_equal(data->current_cmd->args[1], "-"))
+	{
+		if (!path_redir)
+			path_redir = ft_get_env("PWD", data->envp_list);
+		free(path);
+		return (path_redir);
 	}
+	if (!data->current_cmd->args[1])
+		data->current_cmd->args[1] = ft_strdup("");
+	path = data->current_cmd->args[1];
 	return (path);
 }
 
@@ -41,7 +48,7 @@ static void	ft_reasign(char *key, char *value, t_envp_list *current)
 		if (strs_are_equal(key, current->key))
 		{
 			free(current->value);
-			current->value = ft_strdup(value + 1);
+			current->value = ft_strdup(value);
 			return ;
 		}
 		current = current->next;
@@ -61,23 +68,20 @@ static int  ft_cd(char *old_pwd, t_data *data)
     char    *home;
 
     path = ft_get_path(data);
-    printf("PATH: %s\nOLDPWD:%s\n", path, old_pwd);
-    if (!path || !strs_are_equal(path, ""))
+    if (!path || strs_are_equal(path, "") || strs_are_equal(path, "~"))
     {
         home = ft_get_env("HOME", data->envp_list);
-        printf("%s\n", home);
         if (chdir(home) != 0)
             return (free(home), print_error("CD: HOME not set"), 1);
         free(home);
     }
     else if ((chdir(path) != 0))
+	{
         return (print_error("CD: No such file or directory\n"), 1);
-    else
-    {
-        ft_reasign("OLDPWD", old_pwd, data->envp_list);
-        getcwd(old_pwd, sizeof(old_pwd));
-        ft_reasign("PWD", old_pwd, data->envp_list);
-    }
+	}
+	ft_reasign("OLDPWD", old_pwd, data->envp_list);
+    getcwd(old_pwd, sizeof(old_pwd));
+    ft_reasign("PWD", old_pwd, data->envp_list);
     return (EXIT_SUCCESS);
 }
 
