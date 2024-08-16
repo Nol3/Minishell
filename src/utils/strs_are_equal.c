@@ -5,6 +5,10 @@ int	strs_are_equal(char *str1, char *str2)
 	int	size1;
 	int	size2;
 
+	if (!str1 && !str2)
+		return (1);
+	if (!str1 || !str2)
+		return (0);
 	size1 = ft_strlen(str1);
 	size2 = ft_strlen(str2);
 	if (size1 != size2)

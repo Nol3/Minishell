@@ -55,9 +55,9 @@ int	ft_exec_builtin(t_data *data)
 
 int	ft_exec_cmd(t_data *data, int cmd_count)
 {
-	int	status;
+	// int	status;
 
-	status = 0;
+	// status = 0;
 	g_pack = 1;
 	// t_redir
 	return (ft_fork(data, cmd_count));
