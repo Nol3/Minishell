@@ -87,7 +87,7 @@ static int  ft_cd(char *old_pwd, t_data *data)
 
 int cd(t_data *data)
 {
-	char	current_path[255];
+	char	current_path[4096];
 
 	getcwd(current_path, sizeof(current_path));
 	ft_cd(current_path, data);
