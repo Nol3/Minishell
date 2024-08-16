@@ -23,7 +23,7 @@ static char	*ft_get_path(t_data *data)
 
 	path = ft_get_env("PWD", data->envp_list);
 	//printf("FT_GET_PATH: %s\n", path);
-	if (path || strs_are_equal(path, "-"))
+	if (!path || strs_are_equal(path, "-"))
 	{
 		free(path);
 		path = ft_get_env("OLDPWD", data->envp_list);
