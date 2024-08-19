@@ -16,7 +16,7 @@ int	main(int argc, char **argv, char **enpv)
 	data = get_initialized_data(enpv);
 	if (!data)
 		return (print_error("Data initialization failed"));
-	//ft_signals();
+	ft_signals();
 	console_initialization(data);
 	status = data->status;
 	free_data(data);
