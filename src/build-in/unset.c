@@ -57,5 +57,6 @@ int	ft_unset(t_data *data)
 			data->envp_list = unset_variable(data->envp_list, key);
 	}
 	data->status = 0;
+	update_envp(data);
 	return (EXIT_SUCCESS);
 }

@@ -73,6 +73,12 @@ int				strs_are_equal(char *str1, char *str2);
 */
 void			console_initialization(t_data *data);
 
+
+/*
+Updates the data->envp from the data->envp_list
+*/
+int				update_envp(t_data *data);
+
 /*
 -----------------------------
 PARSE/TOKENS

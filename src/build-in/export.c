@@ -82,5 +82,6 @@ int	ft_export(t_data *data)
 			data->envp_list = export_variable(data->envp_list, new);
 	}
 	data->status = 0;
+	update_envp(data);
 	return (EXIT_SUCCESS);
 }
