@@ -24,6 +24,8 @@ t_cmd	*new_cmd(char **args, t_redir_list *redir_list,
 	new->args = args;
 	new->redir_list = redir_list;
 	new->built_in = built_in;
+	new->fd_in = STDIN;
+	new->fd_out = STDOUT;
 	return (new);
 }
 

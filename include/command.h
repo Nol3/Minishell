@@ -112,21 +112,15 @@ Used for get_args and get_redir_list.
 */
 char			*get_arg(t_token **token, t_envp_list *envp_list);
 
-//get_args.c
+//get_lists.c
 
 /*
-Returns the needed args for the construction of the command node
-@param token double pointer so pointer can be modifiedtypedef struct s_envp_list
-{
-	char				*key;
-	char				*value;
-	struct s_envp_list	*next;
-}						t_envp_list;
-@param args_size it's the max quantity of single char pointers for args
+Fills the args + the redirection list
+@param token double pointer so pointer can be modified
 @param envp_list to expand the variables
 */
-char			**get_args(t_token **token, int args_size,
-					t_envp_list *envp_list);
+void			get_lists(t_token **token, t_envp_list *envp_list,
+					char **args, t_redir_list *redir_list);
 
 //get_built_in.c
 
@@ -135,15 +129,6 @@ char			**get_args(t_token **token, int args_size,
 @return a built_in
 */
 enum e_built_in	get_built_in(char *command);
-
-//get_redir_list.c
-
-/*
-Returns a list of redirections
-@param token double pointer so pointer can be modified
-@param envp_list to expand the variables
-*/
-t_redir_list	*get_redir_list(t_token **token, t_envp_list *envp_list);
 
 //redir_list_utils.c
 

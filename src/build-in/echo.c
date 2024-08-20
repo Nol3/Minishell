@@ -32,25 +32,6 @@ int	ft_echo(char **cmd)
 	return (EXIT_SUCCESS);
 }
 
-
-// int	ft_echo(char **command)
-// {
-// 	int	i;
-
-// 	i = 1;
-// 	if (command[i] == NULL)
-// 	{
-// 		ft_putstr_fd("\n", 1);
-// 		return (EXIT_SUCCESS);
-// 	}
-// 	if (ft_new_line(command) == true)
-// 		ft_putstr_fd("\n", 1);
-// 	ft_putstr_fd(command[i], 1);
-// 	if (command[i++])
-// 		ft_putstr_fd(" ", 1);
-// 	return (EXIT_SUCCESS);
-// }
-
 int	echo(t_data *data)
 {
 	if (ft_strncmp(data->current_cmd->args[0], "echo", 4) == 0

@@ -78,12 +78,16 @@ static t_token	*add_command_to_list(t_cmd_list *cmd_list, t_token *current,
 	enum e_built_in	built_in;
 	t_cmd			*cmd;
 
-	args = get_args(&current, args_size, envp_list);
+	args = (char **)ft_calloc(sizeof(char *), args_size + 2);
 	if (!args)
-		return (0);
-	redir_list = get_redir_list(&current, envp_list);
+		return (NULL);
+	redir_list = NULL;
+	redir_list = init_redir_list(redir_list);
 	if (!redir_list)
-		return (free_strs(args), NULL);
+		return (free(args), NULL);
+	get_lists(&current, envp_list, args, redir_list);
+	if (!args || !redir_list)
+		return (free_strs(args), free_redir_list(redir_list), NULL);
 	built_in = get_built_in(args[0]);
 	cmd = new_cmd(args, redir_list, built_in);
 	if (!cmd)

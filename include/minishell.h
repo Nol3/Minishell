@@ -146,6 +146,13 @@ and returns 0 if not
 int				add_commands_from_input(t_data *data);
 
 /*
+Handles all redirections of the command list of data
+@param data with a complete list of commands
+@return 1 if ok, 0 if not
+*/
+int				handle_redirections(t_data *data);
+
+/*
 -----------------------------
 PIPEX
 -----------------------------

@@ -27,6 +27,8 @@ t_redir	*new_redir(char *file, enum e_token_type type)
 
 void	add_redir_last(t_redir_list *list, t_redir *new)
 {
+	if (!new)
+		return ;
 	if (is_redir_empty(list))
 		list->first = new;
 	else
