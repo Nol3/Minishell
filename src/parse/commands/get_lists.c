@@ -95,15 +95,15 @@ static int	modify_redir_list(t_token **token, t_envp_list *envp_list,
 	return (1);
 }
 
+
 void	get_lists(t_token **token, t_envp_list *envp_list,
 				char **args, t_redir_list *redir_list)
 {
 	int		i;
 
-	if (!token)
+	if (token == NULL || envp_list == NULL || args == NULL || redir_list == NULL)
 		return ;
 	i = -1;
-	//redir = NULL;
 	while (*token && (*token)->type != PIPE_LINE)
 	{
 		if (*token && ((*token)->type == WHITE_SPACE))
@@ -111,10 +111,31 @@ void	get_lists(t_token **token, t_envp_list *envp_list,
 		if ((*token) && (*token)->type != PIPE_LINE && !is_redir((*token)->type))
 		{
 			args[++i] = get_arg(token, envp_list);
-			if (args[i] && args[i][0] == '\0')
-				free(args[i--]);
+			if (args[i] == NULL)
+			{
+				while (i >= 0)
+				{
+					free(args[i]);
+					args[i--] = NULL;
+				}
+				free_redir_list(redir_list);
+				return ;
+			}
+			if (args[i][0] == '\0')
+			{
+				free(args[i]);
+				args[i--] = NULL;
+			}
 		}
-		if ((i >= 0 && !args[i]) || !modify_redir_list(token, envp_list, redir_list))
-			return (free_strs(args), free_redir_list(redir_list));
+		if ((i >= 0 && args[i] == NULL) || !modify_redir_list(token, envp_list, redir_list))
+		{
+			while (i >= 0)
+			{
+				free(args[i]);
+				args[i--] = NULL;
+			}
+			free_redir_list(redir_list);
+			return ;
+		}
 	}
 }

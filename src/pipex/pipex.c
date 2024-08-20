@@ -13,7 +13,7 @@ int	ft_pipex(t_data *data)
 	if (data->cmd_list->size > 1)
 		cmd_count = 1;
 	if (data->current_cmd)
-		ft_exec_builtin(data);
+		status = ft_exec_builtin(data);
 	while (data->current_cmd)
 	{
 		status = ft_exec_cmd(data, cmd_count);
@@ -21,9 +21,11 @@ int	ft_pipex(t_data *data)
 		data->status = status;
 		data->current_cmd = data->current_cmd->next;
 		cmd_count++;
+		//printf("STATUS_PIPEX: %i\n", status);
+		return (status);
 	}
 	data->exit = 0;
-	return (EXIT_SUCCESS);
+	return (status);
 }
 
 int	ft_exec_builtin(t_data *data)
@@ -82,6 +84,7 @@ int	ft_fork(t_data *data, int cmd_count)
 			&& data->current_cmd->fd_out != STDOUT)
 			close(data->current_cmd->fd_out);
 	}
+	//printf("STATUS_FORK: %i\n", WEXITSTATUS(status));
 	return (WEXITSTATUS(status));
 }
 
