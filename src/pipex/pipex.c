@@ -22,6 +22,7 @@ int	ft_pipex(t_data *data)
 		data->current_cmd = data->current_cmd->next;
 		cmd_count++;
 	}
+	data->exit = 0;
 	return (EXIT_SUCCESS);
 }
 
