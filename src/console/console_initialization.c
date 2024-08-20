@@ -22,7 +22,7 @@ void	console_initialization(t_data *data)
 			continue ;
 		ft_pipex(data);
 		if (*input != '\0')
-		 	add_history(input);
+			add_history(input);
 		free(input);
 		if (data->token_list)
 		{

@@ -22,6 +22,7 @@ int	ft_pipex(t_data *data)
 		data->current_cmd = data->current_cmd->next;
 		cmd_count++;
 	}
+	data->exit = 0;
 	return (EXIT_SUCCESS);
 }
 
@@ -112,7 +113,7 @@ int	ft_child_process(t_data *data)
 	paths = get_paths(data->envp);
 	tmp = abs_bin_path(data->current_cmd->args[0], paths);
 	if (!tmp)
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	if (execve(tmp, data->current_cmd->args, data->envp) < 0)
 	{
 		free(tmp);

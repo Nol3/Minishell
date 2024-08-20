@@ -19,6 +19,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <sys/ioctl.h>
 
 typedef struct s_data
 {
@@ -192,5 +193,8 @@ int				ft_export(t_data *data);
 int				ft_pwd(void);
 //unset
 int				ft_unset(t_data *data);
+
+//signals
+void			ft_signals(void);
 
 #endif

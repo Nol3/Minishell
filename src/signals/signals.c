@@ -1,0 +1,29 @@
+#include "../../include/minishell.h"
+
+static void	ctr_c(int signal)
+{
+	(void)signal;
+	if (g_pack == 0)
+	{
+		rl_on_new_line();
+		rl_redisplay();
+		rl_replace_line("", 0);
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+		rl_replace_line("", 0);
+	}
+	else if (g_pack == 1)
+	{
+		write(1, "\n", 1);
+		rl_replace_line("", 1);
+		rl_on_new_line();
+	}
+}
+
+void	ft_signals(void)
+{
+	signal(SIGINT, ctr_c);
+	signal(SIGTSTP, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
