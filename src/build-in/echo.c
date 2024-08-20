@@ -18,9 +18,11 @@ static int	ft_echo(t_data *data)
 		ft_putstr_fd("\n", data->current_cmd->fd_out);
 		return (EXIT_SUCCESS);
 	}
-	if (ft_strncmp(data->current_cmd->args[i], "-n", 2) == 0 && !data->current_cmd->args[i + 1])
+	if (ft_strncmp(data->current_cmd->args[i], "-n", 2) == 0
+		&& !data->current_cmd->args[i + 1])
 		return (EXIT_SUCCESS);
-	while (ft_strncmp(data->current_cmd->args[i], "-n", 2) == 0 && data->current_cmd->args[i][2] == '\0')
+	while (ft_strncmp(data->current_cmd->args[i], "-n", 2) == 0
+		&& data->current_cmd->args[i][2] == '\0')
 		i++;
 	while (data->current_cmd->args[i])
 	{

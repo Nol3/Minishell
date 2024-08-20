@@ -146,6 +146,12 @@ and returns 0 if not
 int				add_commands_from_input(t_data *data);
 
 /*
+-----------------------------
+PARSE/REDIRECTIONS
+-----------------------------
+*/
+
+/*
 Handles all redirections of the command list of data
 @param data with a complete list of commands
 @return 1 if ok, 0 if not
@@ -195,7 +201,7 @@ int				ft_exit(t_data *data);
 //export
 int				ft_export(t_data *data);
 //pwd
-int				ft_pwd(void);
+int				ft_pwd(t_data *data);
 //unset
 int				ft_unset(t_data *data);
 

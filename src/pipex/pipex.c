@@ -36,16 +36,13 @@ int	ft_exec_builtin(t_data *data)
 	else if (data->current_cmd->built_in == B_CD)
 		exit = cd(data);
 	else if (data->current_cmd->built_in == B_PWD)
-		exit = ft_pwd();
+		exit = ft_pwd(data);
 	else if (data->current_cmd->built_in == B_EXPORT)
 		exit = ft_export(data);
 	else if (data->current_cmd->built_in == B_UNSET)
 		exit = ft_unset(data);
 	else if (data->current_cmd->built_in == B_ENV)
-	{
-		printf("env\n");
 		exit = env(data);
-	}
 	else if (data->current_cmd->built_in == B_EXIT)
 		exit = ft_exit(data);
 	else

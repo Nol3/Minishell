@@ -22,7 +22,7 @@ static char	*ft_get_env(char *key, t_envp_list *current)
 static char	*ft_get_path(t_data *data)
 {
 	char	*path;
-	char 	*path_redir;
+	char	*path_redir;
 
 	path = malloc(sizeof(char) * 4096);
 	path_redir = ft_get_env("OLDPWD", data->envp_list);
@@ -62,30 +62,30 @@ static void	ft_reasign(char *key, char *value, t_envp_list *current)
  * @param data The data structure containing the environment variables.
  * @return 0 on success, 1 on failure.
  */
-static int  ft_cd(char *old_pwd, t_data *data)
+static int	ft_cd(char *old_pwd, t_data *data)
 {
-    char    *path;
-    char    *home;
+	char	*path;
+	char	*home;
 
-    path = ft_get_path(data);
-    if (!path || strs_are_equal(path, "") || strs_are_equal(path, "~"))
-    {
-        home = ft_get_env("HOME", data->envp_list);
-        if (chdir(home) != 0)
-            return (free(home), print_error("CD: HOME not set"), 1);
-        free(home);
-    }
-    else if ((chdir(path) != 0))
+	path = ft_get_path(data);
+	if (!path || strs_are_equal(path, "") || strs_are_equal(path, "~"))
 	{
-        return (print_error("CD: No such file or directory\n"), 1);
+		home = ft_get_env("HOME", data->envp_list);
+		if (chdir(home) != 0)
+			return (free(home), print_error("CD: HOME not set"), 1);
+		free(home);
+	}
+	else if ((chdir(path) != 0))
+	{
+		return (print_error("CD: No such file or directory\n"), 1);
 	}
 	ft_reasign("OLDPWD", old_pwd, data->envp_list);
-    getcwd(old_pwd, sizeof(old_pwd));
-    ft_reasign("PWD", old_pwd, data->envp_list);
-    return (EXIT_SUCCESS);
+	getcwd(old_pwd, sizeof(old_pwd));
+	ft_reasign("PWD", old_pwd, data->envp_list);
+	return (EXIT_SUCCESS);
 }
 
-int cd(t_data *data)
+int	cd(t_data *data)
 {
 	char	current_path[4096];
 

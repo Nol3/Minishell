@@ -17,9 +17,22 @@ static int	handle_pipe(t_cmd *cmd, int *fd_in)
 
 static int	handle_redir_list(t_cmd *cmd, int *fd_in)
 {
-	if (!cmd->redir_list || is_redir_empty(cmd->redir_list))
+	int		ok;
+	t_redir	*redir;
+
+	if (*fd_in != 0)
 	{
 		cmd->fd_in = *fd_in;
+		*fd_in = STDIN;
+	}
+	if (!cmd->redir_list || is_redir_empty(cmd->redir_list))
+		return (1);
+	redir = cmd->redir_list->first;
+	ok = 1;
+	while (redir && ok)
+	{
+		ok = handle_redir(cmd, redir);
+		redir = redir->next;
 	}
 	return (1);
 }

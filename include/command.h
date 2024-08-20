@@ -158,4 +158,15 @@ Frees the whole list
 */
 void			free_redir_list(t_redir_list *list);
 
+/*
+-----------------------------
+PARSE/REDIRECTIONS
+-----------------------------
+*/
+
+/*
+Handles the redirection
+*/
+int				handle_redir(t_cmd *cmd, t_redir *redir);
+
 #endif
