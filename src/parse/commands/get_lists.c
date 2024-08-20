@@ -1,64 +1,5 @@
 #include "../../../include/minishell.h"
 
-/*
-
-t_redir_list	*get_redir_list(t_token **token, t_envp_list *envp_list)
-{
-	t_redir_list	*redir_list;
-	t_redir			*redir;
-
-	redir_list = NULL;
-	redir_list = init_redir_list(redir_list);
-	if (!redir_list)
-		return (NULL);
-	if (!token)
-		return (redir_list);
-	while (*token && (*token)->type != PIPE_LINE)
-	{
-		while ((*token) && (*token)->type != PIPE_LINE
-			&& !is_redir((*token)->type))
-			*token = (*token)->next;
-		if ((*token) && is_redir((*token)->type))
-		{
-			redir = get_redir(token, envp_list);
-			if (!redir)
-				return (free_redir_list(redir_list), NULL);
-			add_redir_last(redir_list, redir);
-		}
-	}
-	return (redir_list);
-}
-
-char	**get_args(t_token **token, int args_size, t_envp_list *envp_list)
-{
-	char	**args;
-	int		i;
-
-	args = (char **)ft_calloc(sizeof(char *), args_size + 2);
-	if (!args)
-		return (NULL);
-	if (!token)
-		return (args);
-	i = 0;
-	if (*token && ((*token)->type == WHITE_SPACE))
-		*token = skip_spaces(*token, 1);
-	while (*token && (*token)->type != PIPE_LINE
-		&& !is_redir((*token)->type))
-	{
-		args[i] = get_arg(token, envp_list);
-		if (!args[i])
-			return (free_strs(args), NULL);
-		if (args[i][0] == '\0')
-			free(args[i--]);
-		i++;
-		if (*token && ((*token)->type == WHITE_SPACE))
-			*token = skip_spaces(*token, 1);
-	}
-	return (args);
-}
-
-*/
-
 static t_redir	*get_redir(t_token **token, t_envp_list *envp_list)
 {
 	t_redir				*redir;
@@ -81,7 +22,7 @@ static t_redir	*get_redir(t_token **token, t_envp_list *envp_list)
 }
 
 static int	modify_redir_list(t_token **token, t_envp_list *envp_list,
-				t_redir_list *redir_list)
+		t_redir_list *redir_list)
 {
 	t_redir	*redir;
 
@@ -95,26 +36,32 @@ static int	modify_redir_list(t_token **token, t_envp_list *envp_list,
 	return (1);
 }
 
-void	get_lists(t_token **token, t_envp_list *envp_list,
-				char **args, t_redir_list *redir_list)
+void	get_lists(t_token **token, t_envp_list *envp_list, char **args,
+		t_redir_list *redir_list)
 {
-	int		i;
+	int	i;
 
-	if (!token)
+	if (token == NULL || envp_list == NULL || args == NULL
+		|| redir_list == NULL)
 		return ;
 	i = -1;
-	//redir = NULL;
 	while (*token && (*token)->type != PIPE_LINE)
 	{
 		if (*token && ((*token)->type == WHITE_SPACE))
 			*token = skip_spaces(*token, 1);
-		if ((*token) && (*token)->type != PIPE_LINE && !is_redir((*token)->type))
+		if ((*token) && (*token)->type != PIPE_LINE
+			&& !is_redir((*token)->type))
 		{
 			args[++i] = get_arg(token, envp_list);
-			if (args[i] && args[i][0] == '\0')
-				free(args[i--]);
+			if (args[i] == NULL)
+				return (free_strs(args), free_redir_list(redir_list));
+			if (args[i][0] == '\0')
+			{
+				free(args[i]);
+				args[i--] = NULL;
+			}
 		}
-		if ((i >= 0 && !args[i]) || !modify_redir_list(token, envp_list, redir_list))
+		if (!modify_redir_list(token, envp_list, redir_list))
 			return (free_strs(args), free_redir_list(redir_list));
 	}
 }

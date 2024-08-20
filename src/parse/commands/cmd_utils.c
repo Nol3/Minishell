@@ -8,6 +8,9 @@ void	free_strs(char **strs)
 		return ;
 	i = -1;
 	while (strs[++i])
+	{
 		free(strs[i]);
+		strs[i] = NULL;
+	}
 	free(strs);
 }
