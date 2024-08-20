@@ -102,25 +102,6 @@ Frees a double pointer char that is NULL terminated
 */
 void			free_strs(char **strs);
 
-//get_arg.c
-
-/*
-Returns a word from a combination of tokens from the token list.
-Used for get_args and get_redir_list.
-@param token double pointer so pointer can be modified
-@param envp_list to expand the variables
-*/
-char			*get_arg(t_token **token, t_envp_list *envp_list);
-
-//get_lists.c
-
-/*
-Fills the args + the redirection list
-@param token double pointer so pointer can be modified
-@param envp_list to expand the variables
-*/
-void			get_lists(t_token **token, t_envp_list *envp_list,
-					char **args, t_redir_list *redir_list);
 
 //get_built_in.c
 

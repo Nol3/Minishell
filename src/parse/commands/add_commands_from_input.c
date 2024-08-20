@@ -73,7 +73,7 @@ static void	print_cmd_list(t_cmd_list *cmd_list)
 }
 
 static t_token	*add_command_to_list(t_cmd_list *cmd_list, t_token *current,
-									int args_size, t_envp_list *envp_list)
+									int args_size, t_data *data)
 {
 	char			**args;
 	t_redir_list	*redir_list;
@@ -87,7 +87,7 @@ static t_token	*add_command_to_list(t_cmd_list *cmd_list, t_token *current,
 	redir_list = init_redir_list(redir_list);
 	if (!redir_list)
 		return (free(args), NULL);
-	get_lists(&current, envp_list, args, redir_list);
+	get_lists(&current, data, args, redir_list);
 	if (!args || !redir_list)
 		return (free_strs(args), free_redir_list(redir_list), NULL);
 	built_in = get_built_in(args[0]);
@@ -114,7 +114,7 @@ int	add_commands_from_input(t_data *data)
 		if (current->type == PIPE_LINE)
 			current = current->next;
 		updated = add_command_to_list(data->cmd_list, current,
-				data->token_list->size, data->envp_list);
+				data->token_list->size, data);
 		if (updated == current)
 			return (0);
 		current = updated;

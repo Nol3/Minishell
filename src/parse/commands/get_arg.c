@@ -21,27 +21,27 @@ static char	*concatenated_words(char *str1, char *str2)
 	return (result);
 }
 
-static char	*get_aux_in_quotes(t_token *token, t_envp_list *envp_list)
+static char	*get_aux_in_quotes(t_token *token, t_data *data)
 {
 	if (token->type == WHITE_SPACE)
 		return (ft_strdup(" "));
 	if (token->type == ENV && token->state == IN_DQUOTE)
-		return (expanded_token(token, envp_list));
+		return (expanded_token(token, data));
 	return (ft_strdup(token->content));
 }
 
-static char	*get_aux_general(t_token *token, t_envp_list *envp_list)
+static char	*get_aux_general(t_token *token, t_data *data)
 {
 	if (token->type == WORD)
 		return (ft_strdup(token->content));
 	if (token->type == ENV)
-		return (expanded_token(token, envp_list));
+		return (expanded_token(token, data));
 	if (token->type == DOUBLE_QUOTE || token->type == QUOTE)
 		return (ft_strdup(""));
 	return (NULL);
 }
 
-char	*get_arg(t_token **token, t_envp_list *envp_list)
+char	*get_arg(t_token **token, t_data *data)
 {
 	char	*arg;
 	char	*aux;
@@ -53,9 +53,9 @@ char	*get_arg(t_token **token, t_envp_list *envp_list)
 	while (*token)
 	{
 		if ((*token)->state == GENERAL)
-			aux = get_aux_general(*token, envp_list);
+			aux = get_aux_general(*token, data);
 		else
-			aux = get_aux_in_quotes(*token, envp_list);
+			aux = get_aux_in_quotes(*token, data);
 		if (!aux)
 			return (arg);
 		arg = concatenated_words(arg, aux);

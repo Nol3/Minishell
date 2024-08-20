@@ -130,7 +130,7 @@ PARSE/EXPANDER
 @return value of the variable if it exists, empty string
 if it doesn't
 */
-char			*expanded_token(t_token *token, t_envp_list *list);
+char			*expanded_token(t_token *token, t_data *data);
 
 /*
 -----------------------------
@@ -138,12 +138,34 @@ PARSE/COMMANDS
 -----------------------------
 */
 
+//add_commands_from_input.c
+
 /*
 Adds tokens from input, returns 1 if ok
 and returns 0 if not
 @param data Fully initialized with tokens
 */
 int				add_commands_from_input(t_data *data);
+
+//get_arg.c
+
+/*
+Returns a word from a combination of tokens from the token list.
+Used for get_args and get_redir_list.
+@param token double pointer so pointer can be modified
+@param data to expand the variables
+*/
+char			*get_arg(t_token **token, t_data *data);
+
+//get_lists.c
+
+/*
+Fills the args + the redirection list
+@param token double pointer so pointer can be modified
+@param data to expand the variables
+*/
+void			get_lists(t_token **token, t_data *data, char **args,
+					t_redir_list *redir_list);
 
 /*
 -----------------------------

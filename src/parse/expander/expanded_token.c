@@ -1,7 +1,12 @@
 #include "../../../include/minishell.h"
 
-static char	*get_value(char *key, t_envp_list *list)
+static char	*get_value(char *key, t_data *data)
 {
+	t_envp_list	*list;
+
+	if (strs_are_equal(key, "?"))
+		return (ft_itoa(data->status));
+	list = data->envp_list;
 	while (list && !strs_are_equal(key, list->key))
 		list = list->next;
 	if (list)
@@ -9,15 +14,17 @@ static char	*get_value(char *key, t_envp_list *list)
 	return ("");
 }
 
-char	*expanded_token(t_token *token, t_envp_list *list)
+char	*expanded_token(t_token *token, t_data *data)
 {
 	char		*value;
 	char		*copy;
 
 	if (token->type != ENV)
 		return (NULL);
-	value = get_value((token->content) + 1, list);
+	value = get_value((token->content) + 1, data);
 	copy = ft_strdup(value);
+	if (strs_are_equal((token->content) + 1, "?"))
+		free(value);
 	if (!copy)
 		return (NULL);
 	return (copy);
