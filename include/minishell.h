@@ -186,8 +186,6 @@ void			ft_free_matrix(char **envp);
 //cd functions
 int				cd(t_data *data);
 //echo
-bool			ft_new_line(char **str);
-int				ft_echo(char **command);
 int 			echo(t_data *data);
 //env
 void			ft_env(t_data *data);

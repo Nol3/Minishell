@@ -56,9 +56,7 @@ int	ft_exec_builtin(t_data *data)
 
 int	ft_exec_cmd(t_data *data, int cmd_count)
 {
-	// int	status;
-
-	// status = 0;
+	//status check
 	g_pack = 1;
 	// t_redir
 	return (ft_fork(data, cmd_count));
@@ -107,8 +105,8 @@ int	ft_child_process(t_data *data)
 	tmp = NULL;
 	paths = NULL;
 	status = 0;
-	og_stdin = dup(STDIN);
-	og_stdout = dup(STDOUT);
+	og_stdin = data->current_cmd->fd_in;
+	og_stdout = data->current_cmd->fd_out;
 	child_process_redir(data->current_cmd);
 	paths = get_paths(data->envp);
 	tmp = abs_bin_path(data->current_cmd->args[0], paths);
@@ -133,39 +131,3 @@ void	ft_redir_fd_std(int fd, int std, int fd2)
 		close(fd);
 	}
 }
-
-/*
----------------- builtin functions ----------------
-*/
-
-// int	ft_is_builtin(t_data *data, char *str)
-// {
-// 	int	cntr;
-
-// 	cntr = 0;
-// 	while (data->built_in_cmd[cntr])
-// 	{
-// 		if (ft_strncmp(str, data->built_in_cmd[cntr],
-// 				ft_strlen(data->built_in_cmd[cntr]) + 1) == 0)
-// 			return (TRUE);
-// 		cntr++;
-// 	}
-// 	return (FALSE);
-// }
-
-// int	ft_built_in(t_data *data, t_cmd *node)
-// {
-// 	int	status;
-// 	int	original_fd_out;
-// 	int	original_fd_in;
-
-// 	original_fd_out = dup(STDOUT);
-// 	original_fd_in = dup(STDIN);
-// 	status = 0;
-// 	ft_redir_fd_std(node->fd_in, STDIN, node->fd_in);
-// 	ft_redir_fd_std(node->fd_out, STDOUT, node->fd_out);
-// 	status = ft_exec_builtin(data, node->command);
-// 	ft_redir_fd_std(node->fd_in, STDIN, original_fd_in);
-// 	ft_redir_fd_std(node->fd_out, STDOUT, original_fd_out);
-// 	return (status);
-// }

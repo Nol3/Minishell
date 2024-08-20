@@ -36,6 +36,8 @@ static void	print_redir_list(t_redir_list *redir_list)
 {
 	t_redir	*redir;
 
+	if (!redir_list)
+		return ;
 	redir = redir_list->first;
 	while (redir)
 	{
