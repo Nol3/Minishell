@@ -92,7 +92,6 @@ Frees the whole list
 */
 void			free_token_list(t_token_list *list);
 
-
 //token_utils.c
 
 /*
@@ -104,7 +103,6 @@ Returns a pointer to a new string which is a duplicate of the string s,
 but copies at most n bytes.
 */
 char			*ft_strndup(char *s1, size_t n);
-
 
 //aux_tokenize.c
 
@@ -140,6 +138,5 @@ Adds a redirection token into the list
 */
 int				tokenize_redir(t_token_list *list, char *str,
 					enum e_token_state state);
-
 
 #endif

@@ -12,6 +12,7 @@
 
 #include "../../../include/minishell.h"
 
+/*
 static void	print_node(t_token *token)
 {
 	int	i;
@@ -36,6 +37,7 @@ static void	print_list(t_token_list *list)
 		token = token->next;
 	}
 }
+*/
 
 static int	tokenize_pipe(t_token_list *list, enum e_token_state state)
 {
@@ -98,6 +100,5 @@ int	add_tokens_from_input(t_data *data, char *input)
 			return (free_token_list(data->token_list), 0);
 		i = j;
 	}
-	print_list(data->token_list);
 	return (1);
 }
