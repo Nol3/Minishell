@@ -1,19 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   valid_token_list.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/21 16:36:10 by angcampo          #+#    #+#             */
+/*   Updated: 2024/08/21 16:36:13 by angcampo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
-
-/*
-static void	print_node(t_token *token)
-{
-	int	i;
-
-	i = 0;
-	printf("content: ");
-	while (i < token->len)
-		putchar(token->content[i++]);
-	printf(", len: %i", token->len);
-	printf(", state: %i", token->state);
-	printf(", token: %i\n", token->type);
-}
-*/
 
 static int	error_with_pipe(t_token *token)
 {
