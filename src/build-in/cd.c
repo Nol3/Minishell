@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/21 16:31:10 by alcarden          #+#    #+#             */
+/*   Updated: 2024/08/21 16:31:11 by alcarden         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/minishell.h"
 
 static char	*ft_get_env(char *key, t_envp_list *current)
@@ -55,13 +67,7 @@ static void	ft_reasign(char *key, char *value, t_envp_list *current)
 	}
 }
 
-/**
- * @brief Changes the current directory to the one specified by the path.
- *
- * @param old_pwd The current working directory.
- * @param data The data structure containing the environment variables.
- * @return 0 on success, 1 on failure.
- */
+
 static int	ft_cd(char *old_pwd, t_data *data)
 {
 	char	*path;
