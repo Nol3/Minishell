@@ -1,19 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   validator_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/21 16:36:20 by angcampo          #+#    #+#             */
+/*   Updated: 2024/08/21 16:36:23 by angcampo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
-
-/*
-static void	print_node(t_token *token)
-{
-	int	i;
-
-	i = 0;
-	printf("content: ");
-	while (i < token->len)
-		putchar(token->content[i++]);
-	printf(", len: %i", token->len);
-	printf(", state: %i", token->state);
-	printf(", token: %i\n", token->type);
-}
-*/
 
 int	is_redir(int type)
 {

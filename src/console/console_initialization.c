@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   console_initialization.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/21 16:31:47 by alcarden          #+#    #+#             */
-/*   Updated: 2024/08/21 16:31:48 by alcarden         ###   ########.fr       */
+/*   Created: 2024/08/21 16:34:14 by angcampo          #+#    #+#             */
+/*   Updated: 2024/08/21 16:34:16 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

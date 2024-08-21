@@ -1,29 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   add_commands_from_input.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/21 16:34:25 by angcampo          #+#    #+#             */
+/*   Updated: 2024/08/21 16:34:40 by angcampo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../include/minishell.h"
-
-// static void	print_node(t_token *token)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	printf("content: ");
-// 	while (i < token->len)
-// 		putchar(token->content[i++]);
-// 	printf(", len: %i", token->len);
-// 	printf(", state: %i", token->state);
-// 	printf(", token: %i\n", token->type);
-// }
-
-// static void	print_list(t_token_list *list)
-// {
-// 	t_token	*token;
-
-// 	token = list->first;
-// 	while (token)
-// 	{
-// 		print_node(token);
-// 		token = token->next;
-// 	}
-// }
 
 /*
 static void	print_redir(t_redir *redir)
