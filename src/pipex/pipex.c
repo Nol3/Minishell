@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:30:42 by alcarden          #+#    #+#             */
-/*   Updated: 2024/08/21 16:45:35 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:56:56 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,33 +44,23 @@ int	ft_exec_cmd(t_data *data, int cmd_count)
 	return (ft_fork(data, cmd_count));
 }
 
-int	ft_fork(t_data *data, int cmd_count)
-{
-	int		status;
-	pid_t	id;
-
-	status = UNDEF_FD;
-	id = fork();
-	cmd_count = 0;
-	if (id == 0 && cmd_count == 0)
-		ft_child_process(data);
-	else
-	{
-		waitpid(id, &status, 0);
-		if (data->current_cmd->fd_in != UNDEF_FD
-			&& data->current_cmd->fd_in != STDIN)
-			close(data->current_cmd->fd_in);
-		if (data->current_cmd->fd_out != UNDEF_FD
-			&& data->current_cmd->fd_out != STDOUT)
-			close(data->current_cmd->fd_out);
-	}
-	return (WEXITSTATUS(status));
-}
-
 static void	child_process_redir(t_cmd *node)
 {
 	ft_redir_fd_std(node->fd_in, STDIN, node->fd_in);
 	ft_redir_fd_std(node->fd_out, STDOUT, node->fd_out);
+}
+
+static char	*resolve_absolute_path(char *cmd, char **envp)
+{
+	char	**envp_paths;
+	char	*absolute_path;
+
+	if (cmd[0] == '/')
+		return (strdup(cmd));
+	envp_paths = get_paths(envp);
+	absolute_path = abs_bin_path(cmd, envp_paths);
+	ft_free_matrix(envp_paths);
+	return (absolute_path);
 }
 
 int	ft_child_process(t_data *data)
@@ -79,16 +69,14 @@ int	ft_child_process(t_data *data)
 	int		original_stdout;
 	char	*absolute_path;
 	int		exit_status;
-	char	**envp_paths;
 
 	exit_status = 0;
-	envp_paths = get_paths(data->envp);
-	absolute_path = abs_bin_path(data->current_cmd->args[0], envp_paths);
-	ft_free_matrix(envp_paths);
-	if (!absolute_path)
-		exit(EXIT_SUCCESS);
 	original_stdin = data->current_cmd->fd_in;
 	original_stdout = data->current_cmd->fd_out;
+	absolute_path = resolve_absolute_path(data->current_cmd->args[0],
+			data->envp);
+	if (!absolute_path)
+		exit(EXIT_SUCCESS);
 	child_process_redir(data->current_cmd);
 	if (execve(absolute_path, data->current_cmd->args, data->envp) < 0)
 	{

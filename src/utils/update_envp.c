@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   update_envp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:37:35 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/21 16:37:36 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/21 17:25:37 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/*
 void	print_strs(char **strs)
 {
 	int	i;
@@ -20,6 +21,7 @@ void	print_strs(char **strs)
 	while (strs[++i])
 		printf("%s\n", strs[i]);
 }
+*/
 
 static int	envp_list_size(t_envp_list *list)
 {
@@ -76,6 +78,5 @@ int	update_envp(t_data *data)
 	data->envp = get_envp_from_list(data->envp_list);
 	if (!data->envp)
 		return (print_error("Malloc error"), 0);
-	print_strs(data->envp);
 	return (1);
 }
