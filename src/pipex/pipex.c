@@ -12,17 +12,17 @@ int	ft_pipex(t_data *data)
 	cmd_count = 0;
 	if (data->cmd_list->size > 1)
 		cmd_count = 1;
-	if (data->current_cmd)
-		ft_exec_builtin(data);
 	while (data->current_cmd)
 	{
-		status = ft_exec_cmd(data, cmd_count);
+		if (data->current_cmd->built_in != NOT_BUILT_IN)
+			status = ft_exec_builtin(data);
+		else
+			status = ft_exec_cmd(data, cmd_count);
 		g_pack = 0;
 		data->status = status;
 		data->current_cmd = data->current_cmd->next;
 		cmd_count++;
 	}
-	data->exit = 0;
 	return (EXIT_SUCCESS);
 }
 
@@ -47,7 +47,6 @@ int	ft_exec_builtin(t_data *data)
 		exit = ft_exit(data);
 	else
 		return (EXIT_FAILURE);
-	data->current_cmd = data->current_cmd->next;
 	return (exit);
 }
 
