@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:30:50 by alcarden          #+#    #+#             */
-/*   Updated: 2024/08/21 18:56:37 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:48:09 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,40 @@ int	ft_exec_builtin(t_data *data)
 	return (exit);
 }
 
+static void	handle_child_process(t_data *data)
+{
+	data->status = ft_child_process(data);
+}
+
+static void	handle_parent_process(t_data *data, pid_t id, int *status)
+{
+	waitpid(id, status, 0);
+	if (data->current_cmd->fd_in != UNDEF_FD
+		&& data->current_cmd->fd_in != STDIN)
+		close(data->current_cmd->fd_in);
+	if (data->current_cmd->fd_out != UNDEF_FD
+		&& data->current_cmd->fd_out != STDOUT)
+		close(data->current_cmd->fd_out);
+}
+
 int	ft_fork(t_data *data, int cmd_count)
 {
 	int		status;
 	pid_t	id;
 
+	(void)cmd_count;
 	status = UNDEF_FD;
 	id = fork();
-	cmd_count = 0;
-	if (id == 0 && cmd_count == 0)
-		ft_child_process(data);
+	if (id == 0)
+		handle_child_process(data);
+	else if (id > 0)
+		handle_parent_process(data, id, &status);
 	else
 	{
-		waitpid(id, &status, 0);
-		if (data->current_cmd->fd_in != UNDEF_FD
-			&& data->current_cmd->fd_in != STDIN)
-			close(data->current_cmd->fd_in);
-		if (data->current_cmd->fd_out != UNDEF_FD
-			&& data->current_cmd->fd_out != STDOUT)
-			close(data->current_cmd->fd_out);
+		perror("fork");
+		status = EXIT_FAILURE;
 	}
-	return (WEXITSTATUS(status));
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (data->status);
 }

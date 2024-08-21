@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:30:42 by alcarden          #+#    #+#             */
-/*   Updated: 2024/08/21 18:56:56 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:38:15 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ int	ft_child_process(t_data *data)
 	absolute_path = resolve_absolute_path(data->current_cmd->args[0],
 			data->envp);
 	if (!absolute_path)
-		exit(EXIT_SUCCESS);
+		return (127);
 	child_process_redir(data->current_cmd);
-	if (execve(absolute_path, data->current_cmd->args, data->envp) < 0)
+	data->status = execve(absolute_path, data->current_cmd->args, data->envp);
+	if (data->status < 0)
 	{
 		free(absolute_path);
-		exit_status = EXIT_FAILURE;
+		data->status = 127;
 		ft_redir_fd_std(original_stdin, exit_status, original_stdout);
-		exit(exit_status);
 	}
-	return (exit_status);
+	return (data->status);
 }

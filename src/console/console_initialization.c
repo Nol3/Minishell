@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:34:14 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/21 17:32:38 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/08/21 19:53:47 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	console_initialization(t_data *data)
 		input = readline("Minishell$ ");
 		if (!input)
 		{
-			free(input);
 			data->exit = 1;
 			continue ;
 		}
