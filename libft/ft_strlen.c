@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:59:59 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/16 18:56:23 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:40:04 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	ft_strlen(const char *s)
 	int	len;
 
 	len = 0;
-	
 	while (s[len])
 		len++;
 	return (len);

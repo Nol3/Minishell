@@ -102,7 +102,6 @@ Frees a double pointer char that is NULL terminated
 */
 void			free_strs(char **strs);
 
-
 //get_built_in.c
 
 /*

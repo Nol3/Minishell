@@ -25,6 +25,7 @@
 // 	}
 // }
 
+/*
 static void	print_redir(t_redir *redir)
 {
 	if (!redir)
@@ -71,6 +72,7 @@ static void	print_cmd_list(t_cmd_list *cmd_list)
 		cmd = cmd->next;
 	}
 }
+*/
 
 static t_token	*add_command_to_list(t_cmd_list *cmd_list, t_token *current,
 									int args_size, t_data *data)
@@ -119,6 +121,5 @@ int	add_commands_from_input(t_data *data)
 			return (0);
 		current = updated;
 	}
-	print_cmd_list(data->cmd_list);
 	return (1);
 }

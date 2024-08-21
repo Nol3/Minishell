@@ -6,18 +6,18 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:30:42 by alcarden          #+#    #+#             */
-/*   Updated: 2024/08/21 16:30:43 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:45:35 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int				g_pack;
+int			g_pack;
 
 int	ft_pipex(t_data *data)
 {
-	int		status;
-	int		cmd_count;
+	int	status;
+	int	cmd_count;
 
 	data->current_cmd = data->cmd_list->first;
 	status = 0;
@@ -79,13 +79,12 @@ int	ft_child_process(t_data *data)
 	int		original_stdout;
 	char	*absolute_path;
 	int		exit_status;
-	char	**environment_paths;
+	char	**envp_paths;
 
 	exit_status = 0;
-	environment_paths = get_paths(data->envp);
-	absolute_path = abs_bin_path(data->current_cmd->args[0],
-										environment_paths);
-	ft_free_matrix(environment_paths);
+	envp_paths = get_paths(data->envp);
+	absolute_path = abs_bin_path(data->current_cmd->args[0], envp_paths);
+	ft_free_matrix(envp_paths);
 	if (!absolute_path)
 		exit(EXIT_SUCCESS);
 	original_stdin = data->current_cmd->fd_in;

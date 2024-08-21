@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:32:21 by alcarden          #+#    #+#             */
-/*   Updated: 2024/08/21 16:32:22 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:37:51 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_data
 	t_cmd				*current_cmd;
 }						t_data;
 
-extern int g_pack;
+extern int		g_pack;
 
 void			parse_variables(char *line);
 /*
@@ -84,7 +84,6 @@ int				strs_are_equal(char *str1, char *str2);
 @brief Inits console
 */
 void			console_initialization(t_data *data);
-
 
 /*
 Updates the data->envp from the data->envp_list
@@ -291,7 +290,8 @@ PATH_UTILS/PIPEX
 
  @param envp An array of environment variables.
  @return An array of strings representing the paths to executable directories.
-         Returns NULL if the environment variable is not found or if there is an error.
+ 	Returns NULL if the environment variable is not found
+	or if there is an error.
  */
 char			**get_paths(char *envp[]);
 
@@ -355,7 +355,7 @@ int				cd(t_data *data);
 
  @return int EXIT_SUCCESS on success, EXIT_FAILURE otherwise
  */
-int 			echo(t_data *data);
+int				echo(t_data *data);
 
 //env.c
 /**

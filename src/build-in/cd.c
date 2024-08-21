@@ -6,7 +6,7 @@
 /*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:31:10 by alcarden          #+#    #+#             */
-/*   Updated: 2024/08/21 16:31:11 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/08/21 16:40:28 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static void	ft_reasign(char *key, char *value, t_envp_list *current)
 		current = current->next;
 	}
 }
-
 
 static int	ft_cd(char *old_pwd, t_data *data)
 {
