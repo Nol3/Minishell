@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:32:13 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/21 16:32:17 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:35:29 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,14 @@ typedef struct s_envp_list
 	char				*value;
 	struct s_envp_list	*next;
 }						t_envp_list;
+
+typedef struct s_export_list
+{
+	char					*key;
+	int						equal;
+	char					*value;
+	struct s_export_list	*next;
+}						t_export_list;
 
 /*
 PARSE/COMMANDS

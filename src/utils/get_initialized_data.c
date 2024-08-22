@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:37:26 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/21 16:37:27 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/22 10:30:48 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,9 @@ t_data	*get_initialized_data(char **envp)
 {
 	t_data	*data;
 
-	data = (t_data *)malloc(sizeof(t_data));
+	data = (t_data *)ft_calloc(1, sizeof(t_data));
 	if (!data)
 		return (print_error("Malloc failed"), NULL);
-	data->status = 0;
-	data->exit = 0;
-	data->token_list = NULL;
-	data->cmd_list = NULL;
 	if (!initialize_built_in_cmd(data))
 		return (print_error("Initializing built in cmd failed"), NULL);
 	data->envp = get_envp(envp);
@@ -128,5 +124,8 @@ t_data	*get_initialized_data(char **envp)
 	data->envp_list = get_envp_list(data->envp);
 	if (!data->envp_list)
 		return (print_error("Creating envp_list failed"), NULL);
+	data->export_list = get_export_list(data->envp);
+	if (!data->export_list)
+		return (print_error("Creating export_list failed"), NULL);
 	return (data);
 }

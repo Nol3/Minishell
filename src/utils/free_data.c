@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:37:23 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/21 16:37:24 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/22 10:21:11 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	free_data(t_data *data)
 	if (data->envp)
 		free_strs(data->envp);
 	free_envp_list(data);
+	free_export_list(data->export_list);
 	if (data->token_list)
 		free_token_list(data->token_list);
 	if (data->cmd_list)

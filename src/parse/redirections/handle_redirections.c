@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:36:29 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/21 16:36:30 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:41:51 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	handle_redirections(t_data *data)
 		ok = handle_redir_list(cmd, &fd_in);
 		if (ok && cmd->next)
 			ok = handle_pipe(cmd, &fd_in);
-		printf("CMD: fd[] = {%i, %i}\n", cmd->fd_in, cmd->fd_out);
 		cmd = cmd->next;
 	}
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:32:21 by alcarden          #+#    #+#             */
-/*   Updated: 2024/08/21 16:37:51 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/08/21 20:40:09 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_data
 	int					status;
 	int					exit;
 	char				**envp;
+	t_export_list		*export_list;
 	t_envp_list			*envp_list;
 	t_token_list		*token_list;
 	t_cmd_list			*cmd_list;
@@ -89,6 +90,18 @@ void			console_initialization(t_data *data);
 Updates the data->envp from the data->envp_list
 */
 int				update_envp(t_data *data);
+
+//utils_export_list.c
+
+void			print_export_list(t_data *data);
+
+t_export_list	*get_export_list_node(char *str);
+
+t_export_list	*add_export_sorted(t_export_list *current, t_export_list *new);
+
+t_export_list	*get_export_list(char **envp);
+
+void			free_export_list(t_export_list *current);
 
 /*
 -----------------------------
@@ -404,9 +417,9 @@ int				ft_export(t_data *data);
 //pwd.c
 /**
  ft_pwd: Returns the current working directory.
- 
+
  @data: Global data structure.
- 
+
  @return: 0 on success, 1 on failure.
  */
 int				ft_pwd(t_data *data);

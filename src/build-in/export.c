@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:33:28 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/21 16:33:30 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/22 10:30:11 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ static t_envp_list	*get_envp_list_node(char *str)
 	if (!new->key)
 		return (free(new), NULL);
 	if (!ft_strlen(new->key))
-		return (free(new->key), free(new),
-			print_error("Key not found"), NULL);
+		return (free(new->key), free(new), print_error("Key not found"), NULL);
 	new->value = ft_strdup(delimiter + 1);
 	if (!new->value)
 		return (free(new->key), free(new), NULL);
@@ -83,15 +82,22 @@ static t_envp_list	*export_variable(t_envp_list *current, t_envp_list *new)
 
 int	ft_export(t_data *data)
 {
-	int			i;
-	t_envp_list	*new;
+	int				i;
+	t_envp_list		*new_envp;
+	t_export_list	*new_export;
 
 	i = 0;
+	if (!data->current_cmd->args[1])
+		return (print_export_list(data), EXIT_SUCCESS);
 	while (data->current_cmd->args[++i])
 	{
-		new = get_envp_list_node(data->current_cmd->args[i]);
-		if (new)
-			data->envp_list = export_variable(data->envp_list, new);
+		new_envp = get_envp_list_node(data->current_cmd->args[i]);
+		if (new_envp)
+			data->envp_list = export_variable(data->envp_list, new_envp);
+		new_export = get_export_list_node(data->current_cmd->args[i]);
+		if (new_export)
+			data->export_list = add_export_sorted(data->export_list,
+					new_export);
 	}
 	data->status = 0;
 	update_envp(data);

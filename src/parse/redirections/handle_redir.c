@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:36:26 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/21 16:36:27 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/21 18:41:36 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,6 @@ static int	redir_out(t_cmd *cmd, t_redir *redir)
 		return (0);
 	return (1);
 }
-/*
-REDIR_IN = '<',
-	REDIR_OUT = '>',
-	HERE_DOC,
-	DREDIR_OUT,
-*/
 
 static int	here_doc(t_cmd *cmd, char *here_doc)
 {
