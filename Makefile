@@ -9,10 +9,10 @@ all :$(NAME)
 
 $(NAME) : $(OBJS)
 	$(MAKE) -C ./libft
-	@clang $(FLAGS) $(OBJS) -lreadline $(LIBFT) -o $(NAME)
+	@gcc $(FLAGS) $(OBJS) -lreadline $(LIBFT) -o $(NAME)
 
 src/%.o : src/%.c
-	clang $(FLAGS) -c $< -o $@
+	gcc $(FLAGS) -c $< -o $@
 
 clean:
 	@rm -f $(OBJS)
