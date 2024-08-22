@@ -5,10 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/21 16:32:21 by alcarden          #+#    #+#             */
-/*   Updated: 2024/08/21 20:40:09 by angcampo         ###   ########.fr       */
+/*   Created: 2024/08/22 10:37:54 by angcampo          #+#    #+#             */
+/*   Updated: 2024/08/22 10:37:55 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -291,6 +293,16 @@ void			ft_redir_fd_std(int fd, int std, int fd2);
  @return The exit status of the executed command.
  */
 int				ft_exec_builtin(t_data *data);
+
+/**
+ Resolves a command path to an absolute path.
+
+ @param cmd The command to resolve the path for.
+ @param envp An array of environment variables.
+ @return The absolute path of the command, or a copy of the original path
+  if it is already absolute.
+ */
+//char	*resolve_absolute_path(char *cmd, char **envp)
 
 /*
 -----------------------------
