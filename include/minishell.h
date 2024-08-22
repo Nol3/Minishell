@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:37:54 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/22 10:40:37 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:53:37 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_data
 	int					status;
 	int					exit;
 	char				**envp;
+	int					*pipe_fds;
 	t_export_list		*export_list;
 	t_envp_list			*envp_list;
 	t_token_list		*token_list;
@@ -209,6 +210,13 @@ Handles all redirections of the command list of data
 @return 1 if ok, 0 if not
 */
 int				handle_redirections(t_data *data);
+
+/*
+Handles the redirection
+*/
+int	handle_redir(t_data *data, t_cmd *cmd, t_redir *redir);
+
+int	here_doc(t_data *data, t_cmd *cmd, char *here_doc);
 
 /*
 -----------------------------

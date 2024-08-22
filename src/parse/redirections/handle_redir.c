@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:36:26 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/21 18:41:36 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:52:09 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,29 +44,7 @@ static int	redir_out(t_cmd *cmd, t_redir *redir)
 	return (1);
 }
 
-static int	here_doc(t_cmd *cmd, char *here_doc)
-{
-	char	*input;
-	int		fd[2];
-
-	input = NULL;
-	if (!here_doc || pipe(fd) < 0)
-		return (-1);
-	input = readline("> ");
-	while (input && !strs_are_equal(input, here_doc))
-	{
-		ft_putstr_fd(input, fd[1]);
-		ft_putstr_fd("\n", fd[1]);
-		free(input);
-		input = readline("> ");
-	}
-	free(input);
-	close(fd[1]);
-	cmd->fd_in = fd[0];
-	return (1);
-}
-
-int	handle_redir(t_cmd *cmd, t_redir *redir)
+int	handle_redir(t_data *data, t_cmd *cmd, t_redir *redir)
 {
 	if (redir->type == REDIR_IN)
 		return (redir_in(cmd, redir));
@@ -74,6 +52,6 @@ int	handle_redir(t_cmd *cmd, t_redir *redir)
 		|| redir->type == DREDIR_OUT)
 		return (redir_out(cmd, redir));
 	else if (redir->type == HERE_DOC)
-		return (here_doc(cmd, redir->file));
+		return (here_doc(data, cmd, redir->file));
 	return (1);
 }

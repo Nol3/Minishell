@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:32:13 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/21 18:35:29 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:53:30 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,10 +163,5 @@ void			free_redir_list(t_redir_list *list);
 PARSE/REDIRECTIONS
 -----------------------------
 */
-
-/*
-Handles the redirection
-*/
-int				handle_redir(t_cmd *cmd, t_redir *redir);
 
 #endif

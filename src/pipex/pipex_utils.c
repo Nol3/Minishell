@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:30:50 by alcarden          #+#    #+#             */
-/*   Updated: 2024/08/21 19:48:09 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:43:36 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+/*
+void	ft_redir_fd_std(int fd, int std, int fd2)
+{
+	if (fd != UNDEF_FD && fd != std)
+	{
+		if (dup2(fd2, std) < 0)
+			print_error("REDIR_ERROR");
+		close(fd);
+	}
+}
+*/
 
 void	ft_redir_fd_std(int fd, int std, int fd2)
 {
@@ -54,6 +66,8 @@ static void	handle_child_process(t_data *data)
 static void	handle_parent_process(t_data *data, pid_t id, int *status)
 {
 	waitpid(id, status, 0);
+	printf("fd_in: %d\n", data->current_cmd->fd_in);
+	printf("fd_out: %d\n", data->current_cmd->fd_out);
 	if (data->current_cmd->fd_in != UNDEF_FD
 		&& data->current_cmd->fd_in != STDIN)
 		close(data->current_cmd->fd_in);

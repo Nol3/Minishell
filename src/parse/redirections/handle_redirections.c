@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:36:29 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/22 10:38:40 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/22 19:52:38 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	handle_pipe(t_cmd *cmd, int *fd_in)
 	return (1);
 }
 
-static int	handle_redir_list(t_cmd *cmd, int *fd_in)
+static int	handle_redir_list(t_data *data, t_cmd *cmd, int *fd_in)
 {
 	int		ok;
 	t_redir	*redir;
@@ -43,7 +43,7 @@ static int	handle_redir_list(t_cmd *cmd, int *fd_in)
 	ok = 1;
 	while (redir && ok)
 	{
-		ok = handle_redir(cmd, redir);
+		ok = handle_redir(data, cmd, redir);
 		redir = redir->next;
 	}
 	return (1);
@@ -62,7 +62,7 @@ int	handle_redirections(t_data *data)
 	ok = 1;
 	while (cmd && ok)
 	{
-		ok = handle_redir_list(cmd, &fd_in);
+		ok = handle_redir_list(data, cmd, &fd_in);
 		if (ok && cmd->next)
 			ok = handle_pipe(cmd, &fd_in);
 		cmd = cmd->next;
