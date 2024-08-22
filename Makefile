@@ -24,10 +24,10 @@ fclean:
 
 re: fclean all
 
-git:
-	git add .
-	git commit -m "Daily sync $(DATE)"
-	git push origin alcarden
+# git:
+# 	git add .
+# 	git commit -m "Daily sync $(DATE)"
+# 	git push origin alcarden
 
 .PHONY: re all fclean clean git
 
