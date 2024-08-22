@@ -6,11 +6,9 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:37:54 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/22 10:37:55 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/22 10:40:37 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H

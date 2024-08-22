@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 18:47:21 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/21 20:46:01 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:31:38 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	print_export_list(t_data *data)
 		fd_out = data->current_cmd->fd_out;
 	while (current)
 	{
+		ft_putstr_fd("declare -x ", fd_out);
 		ft_putstr_fd(current->key, fd_out);
 		if (current->equal)
 		{
@@ -62,35 +63,6 @@ t_export_list	*get_export_list_node(char *str)
 		return (free(new->key), free(new), NULL);
 	new->next = NULL;
 	return (new);
-}
-
-t_export_list	*add_export_sorted(t_export_list *current, t_export_list *new)
-{
-	t_export_list	*first;
-	t_export_list	*previous;
-
-	first = current;
-	if (!first)
-		return (new);
-	previous = NULL;
-	while (current
-		&& ft_strncmp(new->key, current->key, ft_strlen(new->key) + 1) > 0)
-	{
-		if (strs_are_equal(new->key, current->key))
-		{
-			free(current->value);
-			current->value = ft_strdup(new->value);
-			return (free_export_list(new), first);
-		}
-		previous = current;
-		current = current->next;
-	}
-	if (previous)
-		previous->next = new;
-	else
-		first = new;
-	new->next = current;
-	return (first);
 }
 
 t_export_list	*get_export_list(char **envp)

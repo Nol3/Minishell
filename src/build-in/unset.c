@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:33:40 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/21 16:34:00 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/22 10:53:46 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	free_envp_list(t_envp_list *list)
 	}
 }
 
-static t_envp_list	*unset_variable(t_envp_list *current, char *key)
+static t_envp_list	*unset_envp(t_envp_list *current, char *key)
 {
 	t_envp_list	*first;
 	t_envp_list	*previous;
@@ -56,6 +56,31 @@ static t_envp_list	*unset_variable(t_envp_list *current, char *key)
 	return (first);
 }
 
+static t_export_list	*unset_export(t_export_list *current, char *key)
+{
+	t_export_list	*first;
+	t_export_list	*previous;
+
+	first = current;
+	previous = NULL;
+	while (current)
+	{
+		if (strs_are_equal(key, current->key))
+		{
+			if (!previous)
+				first = current->next;
+			if (previous)
+				previous->next = current->next;
+			current->next = NULL;
+			free_export_list(current);
+			return (first);
+		}
+		previous = current;
+		current = current->next;
+	}
+	return (first);
+}
+
 int	ft_unset(t_data *data)
 {
 	int			i;
@@ -66,7 +91,10 @@ int	ft_unset(t_data *data)
 	{
 		key = data->current_cmd->args[i];
 		if (key)
-			data->envp_list = unset_variable(data->envp_list, key);
+		{
+			data->envp_list = unset_envp(data->envp_list, key);
+			data->export_list = unset_export(data->export_list, key);
+		}
 	}
 	data->status = 0;
 	update_envp(data);

@@ -3,46 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:31:14 by alcarden          #+#    #+#             */
-/*   Updated: 2024/08/21 16:31:15 by alcarden         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:50:49 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static bool	ft_new_line(char **str)
+static int	is_a_not_nl_flag(char *str)
 {
-	if (ft_strncmp(str[1], "-n", 2) == 0 && str[1][2] == '\0')
-		return (true);
-	else
-		return (false);
+	int	i;
+
+	i = 0;
+	if (!str || str[i] != '-')
+		return (0);
+	while (str && str[++i])
+	{
+		if (str[i] != 'n')
+			return (0);
+	}
+	return (1);
+}
+
+static int	not_new_line(char **strs)
+{
+	int	i;
+
+	i = 1;
+	while (strs[i] && is_a_not_nl_flag(strs[i]))
+		i++;
+	return (i - 1);
 }
 
 static int	ft_echo(t_data *data)
 {
 	int		i;
+	int		not_nl;
 
 	i = 1;
+	not_nl = not_new_line(data->current_cmd->args);
 	if (!data->current_cmd->args[1])
 	{
 		ft_putstr_fd("\n", data->current_cmd->fd_out);
 		return (EXIT_SUCCESS);
 	}
-	if (ft_strncmp(data->current_cmd->args[i], "-n", 2) == 0
-		&& !data->current_cmd->args[i + 1])
+	if (not_nl != 0 && !data->current_cmd->args[i + not_nl])
 		return (EXIT_SUCCESS);
-	while (ft_strncmp(data->current_cmd->args[i], "-n", 2) == 0
-		&& data->current_cmd->args[i][2] == '\0')
-		i++;
+	i += not_nl;
 	while (data->current_cmd->args[i])
 	{
 		ft_putstr_fd(data->current_cmd->args[i], data->current_cmd->fd_out);
-		i++;
+		if (data->current_cmd->args[++i])
+			ft_putstr_fd(" ", data->current_cmd->fd_out);
 	}
-	if (ft_new_line(data->current_cmd->args) == false)
-		write(data->current_cmd->fd_out, "\n", 1);
+	if (not_nl == 0)
+		ft_putstr_fd("\n", data->current_cmd->fd_out);
 	return (EXIT_SUCCESS);
 }
 

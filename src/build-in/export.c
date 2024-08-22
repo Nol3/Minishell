@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:33:28 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/22 10:30:11 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:29:48 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,24 @@ static t_envp_list	*export_variable(t_envp_list *current, t_envp_list *new)
 	return (first);
 }
 
+int	is_key_valid(char *str)
+{
+	int	i;
+
+	i = 1;
+	if (str && str[0] == '_' && (str[0] == '\0' || str[1] == '='))
+		return (0);
+	if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
+		return (print_error("export: not a valid identifier"));
+	while (str && str[i] != '\0' && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (print_error("export: not a valid identifier"));
+		i++;
+	}
+	return (1);
+}
+
 int	ft_export(t_data *data)
 {
 	int				i;
@@ -91,6 +109,8 @@ int	ft_export(t_data *data)
 		return (print_export_list(data), EXIT_SUCCESS);
 	while (data->current_cmd->args[++i])
 	{
+		if (!is_key_valid(data->current_cmd->args[i]))
+			continue ;
 		new_envp = get_envp_list_node(data->current_cmd->args[i]);
 		if (new_envp)
 			data->envp_list = export_variable(data->envp_list, new_envp);
