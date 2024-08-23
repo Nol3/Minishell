@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:31:02 by alcarden          #+#    #+#             */
-/*   Updated: 2024/08/23 17:05:45 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:25:42 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	ctr_c(int sig)
 static void	ctr_backslash(int sig)
 {
 	(void)sig;
-	write(1, "Quit (core dumped)\n", 19);
+	write(1, "Quit (core dumped)", 19);
 	signal(SIGQUIT, SIG_DFL);
 	raise(SIGQUIT);
 }
