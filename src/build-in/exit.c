@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:33:17 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/23 17:02:17 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:13:08 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,5 @@ int	ft_exit(t_data *data)
 		return (EXIT_FAILURE);
 	}
 	data->exit = 1;
-	data->status = get_exit_code(data);
-	return (EXIT_SUCCESS);
+	return (get_exit_code(data));
 }

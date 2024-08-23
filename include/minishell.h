@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 10:37:54 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/22 19:53:37 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:09:32 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,9 +214,12 @@ int				handle_redirections(t_data *data);
 /*
 Handles the redirection
 */
-int	handle_redir(t_data *data, t_cmd *cmd, t_redir *redir);
+int				handle_redir(t_data *data, t_cmd *cmd, t_redir *redir);
 
-int	here_doc(t_data *data, t_cmd *cmd, char *here_doc);
+/*
+Handles the heredoc
+*/
+int				here_doc(t_data *data, t_cmd *cmd, char *here_doc);
 
 /*
 -----------------------------
