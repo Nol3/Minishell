@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:33:17 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/23 16:54:25 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/23 17:02:17 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	get_exit_code(t_data *data)
 {
 	if (!data->current_cmd->args[1])
 		return (0);
-	if (str_is_a_nbr(!data->current_cmd->args[1]))
+	if (str_is_a_nbr(data->current_cmd->args[1]))
 		return (ft_atoi(data->current_cmd->args[1]) % 256);
 	print_error("exit: numeric argument required");
 	return (255);
