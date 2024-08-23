@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:33:28 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/22 17:01:20 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:12:07 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	is_key_valid(char *str)
 	int	i;
 
 	i = 1;
-	if (str && str[0] == '_' && (str[0] == '\0' || str[1] == '='))
+	if (str && str[0] == '_' && (str[1] == '\0' || str[1] == '='))
 		return (0);
 	if (!str || (!ft_isalpha(str[0]) && str[0] != '_'))
 		return (print_error("export: not a valid identifier"));
@@ -109,7 +109,7 @@ int	ft_export(t_data *data)
 		return (print_export_list(data), EXIT_SUCCESS);
 	while (data->current_cmd->args[++i])
 	{
-		if (is_key_valid(data->current_cmd->args[i]))
+		if (!is_key_valid(data->current_cmd->args[i]))
 			continue ;
 		new_envp = get_envp_list_node(data->current_cmd->args[i]);
 		if (new_envp)

@@ -6,7 +6,7 @@
 /*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 19:45:34 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/22 20:49:38 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/23 16:04:00 by angcampo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int	here_doc(t_data *data, t_cmd *cmd, char *here_doc)
 	while (input && !strs_are_equal(input, here_doc))
 	{
 		print_here_doc_input(data, input, fd[1]);
-		//ft_putstr_fd(input, fd[1]);
 		ft_putstr_fd("\n", fd[1]);
 		free(input);
 		input = readline("> ");
