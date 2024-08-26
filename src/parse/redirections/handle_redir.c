@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:36:26 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/22 19:52:09 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:40:10 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ static int	redir_in(t_cmd *cmd, t_redir *redir)
 	cmd->fd_in = open(redir->file, O_RDONLY);
 	if (cmd->fd_in == -1)
 		return (print_error("When opening file"), 0);
-	if (!redir->next && cmd->fd_in > 2)
-	{
-		close(cmd->fd_in);
-		cmd->fd_in = 0;
-	}
+	// if (!redir->next && cmd->fd_in > 2)
+	// {
+	// 	close(cmd->fd_in);
+	// 	cmd->fd_in = 0;
+	// }
 	return (1);
 }
 

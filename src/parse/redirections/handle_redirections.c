@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirections.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:36:29 by angcampo          #+#    #+#             */
-/*   Updated: 2024/08/22 19:52:38 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:39:57 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static int	handle_pipe(t_cmd *cmd, int *fd_in)
 
 	if (pipe(fd) == -1)
 		return (print_error("Pipe error"), 0);
-	printf("PIPE: fd[] = {%i, %i}\n", fd[0], fd[1]);
 	if (cmd->fd_out > 2)
 		close(fd[1]);
 	else
@@ -63,7 +62,7 @@ int	handle_redirections(t_data *data)
 	while (cmd && ok)
 	{
 		ok = handle_redir_list(data, cmd, &fd_in);
-		if (ok && cmd->next)
+		if (ok && cmd && cmd->next)
 			ok = handle_pipe(cmd, &fd_in);
 		cmd = cmd->next;
 	}

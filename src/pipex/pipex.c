@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: angcampo <angcampo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alcarden <alcarden@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 16:30:42 by alcarden          #+#    #+#             */
-/*   Updated: 2024/08/22 20:01:11 by angcampo         ###   ########.fr       */
+/*   Updated: 2024/08/26 18:41:00 by alcarden         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	ft_child_process(t_data *data)
 	exit_status = 0;
 	original_stdin = data->current_cmd->fd_in;
 	original_stdout = data->current_cmd->fd_out;
+	if (data->current_cmd->args[0] == NULL)
+		return (data->status);
 	absolute_path = resolve_absolute_path(data->current_cmd->args[0],
 			data->envp);
 	if (!absolute_path)
