@@ -33,17 +33,17 @@ static void	ctr_c(int sig)
 	}
 }
 
-static void	ctr_backslash(int sig)
-{
-	(void)sig;
-	write(1, "Quit (core dumped)", 19);
-	signal(SIGQUIT, SIG_DFL);
-	raise(SIGQUIT);
-}
+// static void	ctr_backslash(int sig)
+// {
+// 	(void)sig;
+// 	write(1, "Quit (core dumped)", 19);
+// 	signal(SIGQUIT, SIG_DFL);
+// 	raise(SIGQUIT);
+// }
 
 void	ft_signals(void)
 {
 	signal(SIGINT, ctr_c);
 	signal(SIGTSTP, SIG_IGN);
-	signal(SIGQUIT, ctr_backslash);
+	signal(SIGQUIT, SIG_IGN);
 }

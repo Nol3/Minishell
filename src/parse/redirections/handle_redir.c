@@ -19,11 +19,6 @@ static int	redir_in(t_cmd *cmd, t_redir *redir)
 	cmd->fd_in = open(redir->file, O_RDONLY);
 	if (cmd->fd_in == -1)
 		return (print_error("When opening file"), 0);
-	// if (!redir->next && cmd->fd_in > 2)
-	// {
-	// 	close(cmd->fd_in);
-	// 	cmd->fd_in = 0;
-	// }
 	return (1);
 }
 
